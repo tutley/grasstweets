@@ -1,0 +1,14 @@
+{
+  "name": "grasstweets",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "3.x.x",
+    "mongodb": "1.1.11",
+    "mongoose": "3.6.4",
+    "jade": "0.28.2"
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  }
+}
