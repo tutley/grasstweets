@@ -1,6 +1,4 @@
-/**
- * Site wide navigation links used by each page
- */
+// Site wide navigation links used by each page
 
 var links = [
    { label: 'Home', key: 'front', path: '/'},
