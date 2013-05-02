@@ -19,7 +19,7 @@ var storeConf = {
       db: 'grasstweets',
       host: 'localhost'
    },
-   secret: 'youcanrunbutyoucanthide'
+   secret: process.env.SESSION_SECRET
 };
 
 // Import top level navigation menu

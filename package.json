@@ -7,7 +7,8 @@
     "mongoose": "3.6.x",
     "jade": "0.28.x",
     "passport" : "0.1.x",
-    "connect-mongo" : "0.3.x"
+    "connect-mongo" : "0.3.x",
+    "passport-twitter" : "0.1.x"
   },
   "engines": {
     "node": "0.8.x",
