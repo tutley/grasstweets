@@ -31,15 +31,15 @@ passport.use(new TwitterStrategy({
          // If not, create user
          if (user) {
             var updateNeeded = false;
-            if ( user.name !=== profile.displayName ) {
+            if ( user.name !== profile.displayName ) {
                user.name = profile.displayName;
                updateNeeded = true;
             }
-            if ( user.accessToken !=== token ) {
+            if ( user.accessToken !== token ) {
                user.accessToken = token;
                updateNeeded = true;
             }
-            if ( user.accessTokenSecret !=== tokenSecret ) {
+            if ( user.accessTokenSecret !== tokenSecret ) {
                user.accessTokenSecret = tokenSecret;
                updateNeeded = true;
             }
