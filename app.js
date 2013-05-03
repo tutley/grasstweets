@@ -3,8 +3,9 @@ var express = require('express')
    , routes = require('./routes')
    , mongoose = require('mongoose')
    , mongo = require('mongodb')
-   , passport = require('passport')
-   , mongoStore = require('connect-mongo')(express);
+   , passport = require('./auth')
+   , mongoStore = require('connect-mongo')(express)
+   , moment = require('moment');
 
 var app = module.exports = express();
 global.app = app;
@@ -24,6 +25,9 @@ var storeConf = {
 
 // Import top level navigation menu
 app.locals.links = require('./navigation');
+
+// use date manipulation tool moment
+app.locals.moment = moment;
 
 // App Config
 app.configure(function(){
@@ -48,9 +52,6 @@ app.configure(function(){
    app.use(express.static(__dirname + '/public'));
 });
 
-
-var db = new DB.startup(conn);
-
 //environment specific config
 app.configure('development', function(){
    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
@@ -63,7 +64,7 @@ app.configure('production', function(){
 // Load the router
 require('./routes')(app);
 
-var port = process.env.GRASS_PORT || 6000;
+var port = process.env.GRASS_PORT || 5001;
 app.listen(port, function() {
   console.log("Listening on " + port);
 });

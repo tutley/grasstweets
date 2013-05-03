@@ -3,7 +3,7 @@
 var links = [
    { label: 'Home', key: 'front', path: '/'},
    { label: 'Tweet', key: 'tweet', path: '/tweet' },
-   { label: 'Account', key: 'account', path: '/account'},
+   { label: 'Profile', key: 'profile', path: '/profile'},
    { label: 'About', key: 'about', path: '/about'}
 ];
 

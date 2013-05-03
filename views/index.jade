@@ -1,0 +1,68 @@
+!!!
+html
+   head
+      title= title
+      link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootswatch/2.3.1/spruce/bootstrap.min.css')
+      link(rel='stylesheet', href='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-responsive.min.css')
+      link(rel='stylesheet', href='/css/style.css')
+
+      meta(name='viewport', content='width=device-width, initial-scale=1.0')
+      meta(name='title', content='#{title}')
+      block metas
+         meta(name='description', content='GrassTweets.com keeps you in touch with your representatives through the magic of Twitter!')
+   body
+      div.navbar.navbar-fixed-top
+         div.navbar-inner
+            div.container-fluid
+               button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
+                  span.icon-bar
+                  span.icon-bar
+                  span.icon-bar
+               a.brand(href='/') GrassTweets
+               ul.nav
+                  if user
+                     li.dropdown
+                        a.dropdown-toggle(href='#', data-toggle='dropdown')
+                           | Hi #{user.name}
+                           b.caret
+                        ul.dropdown-menu
+                           li
+                              a(href='/logout') Log Out
+                  else
+                     li.dropdown
+                        a.dropdown-toggle(href='/auth/twitter') Login
+                           b.caret
+
+               div.nav-collapse.collapse
+                  ul.nav
+                     each link in links
+                        - var isActive = (link.path == current ? 'active' : '')
+                        li(class = '#{isActive}')
+                           a(href='#{link.path}')= link.label
+               ///.nav-collapse
+                     
+      div.container-fluid   
+         block afterNav
+            h3 Welcome to Grass Tweets!
+            div.row-fluid
+               div.span2
+                  |&nbsp;
+               div.span8.well
+                  if user
+                     p Welcome back, #{user.name}
+                     p
+                        a(href='/logout') Log Out
+                  else
+                     a(href='/auth/twitter') Login with Twitter!   
+               div.span2
+                  |&nbsp;
+      
+      //- modals and other hidden things
+      block modals
+
+
+      script(src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')
+      script(src='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js')
+      block pageScripts
+
+
