@@ -10,6 +10,8 @@ var express = require('express')
 var app = module.exports = express();
 global.app = app;
 
+var config = require('./config.js');
+
 // Connect to the database once
 var DB = require('./database');
 var db = new DB.startup('mongodb://localhost/grasstweets');
@@ -20,7 +22,7 @@ var storeConf = {
       db: 'grasstweets',
       host: 'localhost'
    },
-   secret: process.env.SESSION_SECRET
+   secret: config.sessionSecret
 };
 
 // Import top level navigation menu
@@ -64,7 +66,7 @@ app.configure('production', function(){
 // Load the router
 require('./routes')(app);
 
-var port = process.env.GRASS_PORT || 5001;
+var port = 5001;
 app.listen(port, function() {
   console.log("Listening on " + port);
 });

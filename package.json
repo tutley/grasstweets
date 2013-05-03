@@ -9,7 +9,8 @@
     "passport" : "0.1.x",
     "connect-mongo" : "0.3.x",
     "passport-twitter" : "0.1.x",
-    "moment" : "2.x.x"
+    "moment" : "2.x.x",
+    "twit" : "1.1.x"
   },
   "engines": {
     "node": "0.8.x",

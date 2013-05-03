@@ -5,6 +5,7 @@ var passport = require('passport')
   , TwitterStrategy = require('passport-twitter').Strategy;
 
 var User = require('./models/user');
+var config = require('./config.js');
 
 // serialize user on login
 passport.serializeUser(function(user, done) {
@@ -19,8 +20,8 @@ passport.deserializeUser(function(id, done) {
 });
 
 passport.use(new TwitterStrategy({
-   consumerKey: process.env.TWITTER_CONSUMER_KEY,
-   consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+   consumerKey: config.twitter.consumerKey,
+   consumerSecret: config.twitter.consumerSecret,
    callbackURL: "http://grasstweets.com/auth/twitter/callback"
    },
    function(token, tokenSecret, profile, done) {

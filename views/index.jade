@@ -19,19 +19,20 @@ html
                   span.icon-bar
                   span.icon-bar
                a.brand(href='/') GrassTweets
-               ul.nav
-                  if user
-                     li.dropdown
-                        a.dropdown-toggle(href='#', data-toggle='dropdown')
-                           | Hi #{user.name}
-                           b.caret
-                        ul.dropdown-menu
-                           li
-                              a(href='/logout') Log Out
-                  else
-                     li.dropdown
-                        a.dropdown-toggle(href='/auth/twitter') Login
-                           b.caret
+               div.pull-right
+                  ul.nav
+                     if user
+                        li.dropdown
+                           a.dropdown-toggle(href='#', data-toggle='dropdown')
+                              | Hi #{user.name}
+                              b.caret
+                           ul.dropdown-menu
+                              li
+                                 a(href='/logout') Log Out
+                     else
+                        li.dropdown
+                           a.dropdown-toggle(href='/auth/twitter') Login
+                              b.caret
 
                div.nav-collapse.collapse
                   ul.nav
