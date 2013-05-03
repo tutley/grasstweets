@@ -29,14 +29,22 @@ passport.use(new TwitterStrategy({
          if (err) { return done(err); }
          // if one found, we're done. If not, create user
          if (user) {
+            user.accessToken = token;
+            user.accessTokenSecret = tokenSecret;
             done(null, user);
          } else {
             var user = new User();
             user.tid = profile.id;
             user.name = profile.displayName;
-console.log(profile);
+            user.username = profile.username;
+            user.location = profile._json.location;
+            user.url = profile._json.url;
+            user.description = profile._json.description;
+            user.photo = profile._json.profile_image_url;
             user.save(function(err) {
                if(err) { next(err); }
+               user.accessToken = token;
+               user.accessTokenSecret = tokenSecret;
                done(null, user);
             });
          }

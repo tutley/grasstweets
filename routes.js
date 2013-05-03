@@ -54,4 +54,10 @@ module.exports = function(app){
      passport.authenticate('twitter', { successRedirect: '/',
                                         failureRedirect: '/loginError' }));
 
+   // and don't forget the logout
+   app.get('/logout', function(req, res){
+      req.logout();
+      res.redirect('/');
+   });
+
 };
