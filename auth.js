@@ -22,7 +22,7 @@ passport.deserializeUser(function(id, done) {
 passport.use(new TwitterStrategy({
       consumerKey: config.twitter.consumerKey,
       consumerSecret: config.twitter.consumerSecret,
-      callbackURL: "http://grasstweets.com/auth/twitter/callback"
+      callbackURL: config.twitter.callback
    },
    function(token, tokenSecret, profile, done) {
       User.findOne({ tid: profile.id }, function(err, user) {
