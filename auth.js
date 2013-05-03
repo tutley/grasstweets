@@ -14,7 +14,7 @@ passport.serializeUser(function(user, done) {
 
 // deserialize user on logout
 passport.deserializeUser(function(id, done) {
-   User.findOne({'tid': id}}, function (err, user) {
+   User.findOne({'tid': id}, function (err, user) {
       done(err, user);
    });
 });
