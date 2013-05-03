@@ -12,6 +12,8 @@ var UserSchema = new Schema({
    url: String,
    description: String,
    photo: String,
+   accessToken: String,
+   accessTokenSecret: String,
    created: { type: Date, default: Date.now }
 }, {
    collection: "users"

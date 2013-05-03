@@ -29,8 +29,6 @@ passport.use(new TwitterStrategy({
          if (err) { return done(err); }
          // if one found, we're done. If not, create user
          if (user) {
-            user.accessToken = token;
-            user.accessTokenSecret = tokenSecret;
             done(null, user);
          } else {
             var user = new User();
@@ -41,10 +39,10 @@ passport.use(new TwitterStrategy({
             user.url = profile._json.url;
             user.description = profile._json.description;
             user.photo = profile._json.profile_image_url;
+            user.accessToken = token;
+            user.accessTokenSecret = tokenSecret;
             user.save(function(err) {
                if(err) { next(err); }
-               user.accessToken = token;
-               user.accessTokenSecret = tokenSecret;
                done(null, user);
             });
          }
