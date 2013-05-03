@@ -20,25 +20,42 @@ passport.deserializeUser(function(id, done) {
 });
 
 passport.use(new TwitterStrategy({
-   consumerKey: config.twitter.consumerKey,
-   consumerSecret: config.twitter.consumerSecret,
-   callbackURL: "http://grasstweets.com/auth/twitter/callback"
+      consumerKey: config.twitter.consumerKey,
+      consumerSecret: config.twitter.consumerSecret,
+      callbackURL: "http://grasstweets.com/auth/twitter/callback"
    },
    function(token, tokenSecret, profile, done) {
       User.findOne({ tid: profile.id }, function(err, user) {
          if (err) { return done(err); }
-         // if one found, we're done. If not, create user
+         // if one found, check to see if their profile changed and update if needed
+         // If not, create user
          if (user) {
-            done(null, user);
+            var updateNeeded = false;
+            if ( user.name !=== profile.displayName ) {
+               user.name = profile.displayName;
+               updateNeeded = true;
+            }
+            if ( user.accessToken !=== token ) {
+               user.accessToken = token;
+               updateNeeded = true;
+            }
+            if ( user.accessTokenSecret !=== tokenSecret ) {
+               user.accessTokenSecret = tokenSecret;
+               updateNeeded = true;
+            }
+            if (updateNeeded) {
+               user.save(function(err) {
+                  if(err) { next(err); }
+                  done(null, user);
+               });
+            } else {
+               done(null, user);
+            }
          } else {
             var user = new User();
             user.tid = profile.id;
             user.name = profile.displayName;
             user.username = profile.username;
-            user.location = profile._json.location;
-            user.url = profile._json.url;
-            user.description = profile._json.description;
-            user.photo = profile._json.profile_image_url;
             user.accessToken = token;
             user.accessTokenSecret = tokenSecret;
             user.save(function(err) {
