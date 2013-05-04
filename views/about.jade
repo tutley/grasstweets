@@ -1,0 +1,49 @@
+extends index
+
+block metas
+   //- meta(name='description', content='This is an example description!')
+      Here you can dynamically control the meta tags for each page
+      This is especially useful for social networking sites like facebook that grab information
+      from these meta tags to determine how links to your site appear on their site
+
+      Keep in mind that index is providing these for each page already:
+      meta(name='viewport', content='width=device-width, initial-scale=1.0')
+      meta(name='title', content='#{title}')
+
+block afterNav
+   div.page-header
+      h2 About GrassTweets.com
+   div.row-fluid
+      div.span12
+         p.
+            The idea behind GrassTweets.com is pretty simple: connect you,
+             the grassroots activist, with your representatives, using the
+             magic of Twitter!
+         p.
+            How does it work? Well that is simple too: you simply log in
+             to this site with your Twitter account and go to the Tweet
+             page. There you will be able to select the representatives
+             that you want to tweet, compose a message, and instantly send
+             it out to each of them individually. How cool is that?
+   div.row-fluid
+      div.span12
+         h4
+            a(href='http://twitter.com/grsstwts') Follow us on Twitter
+   div.row-fluid
+      div.span12
+         h3 Development
+         p This project is being lead by&nbsp
+            a(href='http://twitter.com/tomdotjs') Tom Utley
+         p You can view the source code and even contribute by&nbsp;
+            a(href='https://github.com/tutley/grasstweets') checking out our github repo
+            |.
+
+block modals
+   //- this is where you can add hidden divs and other elements that you'll want to display
+      dynamically on the page. 
+
+block pageScripts
+   //- This is where any page specific scripts go   
+      Keep in mind that these are included in every page already:
+      script(src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')
+      script(src='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js')

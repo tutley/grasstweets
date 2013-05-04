@@ -27,6 +27,7 @@ module.exports = function(app){
     */
    app.get('/', home.index);
    app.get('/loginError', home.loginError);
+   app.get('/about', home.about);
 
    /**
     * Tweet Routes - Make tweets, view tweets, etc
