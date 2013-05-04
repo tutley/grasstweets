@@ -35,6 +35,10 @@ passport.use(new TwitterStrategy({
                user.name = profile.displayName;
                updateNeeded = true;
             }
+            if ( user.photo !== profile._json.profile_image_url ) {
+               user.photo = profile._json.profile_image_url;
+               updateNeeded = true;
+            }
             if ( user.accessToken !== token ) {
                user.accessToken = token;
                updateNeeded = true;
@@ -56,6 +60,7 @@ passport.use(new TwitterStrategy({
             user.tid = profile.id;
             user.name = profile.displayName;
             user.username = profile.username;
+            user.photo = profile._json.profile_image_url;
             user.accessToken = token;
             user.accessTokenSecret = tokenSecret;
             user.save(function(err) {

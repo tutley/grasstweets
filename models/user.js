@@ -8,9 +8,15 @@ var UserSchema = new Schema({
    tid : String,
    name: String,
    username: String,
+   photo: String,
    accessToken: String,
    accessTokenSecret: String,
-   created: { type: Date, default: Date.now }
+   state: String,
+   created: { type: Date, default: Date.now },
+   tweets: [{
+      type: ObjectId,
+      ref: 'Tweet'
+   }]
 }, {
    collection: "users"
 });

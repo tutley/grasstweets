@@ -4,6 +4,7 @@ var passport = require('passport');
 //Include Routing Subfiles
 var home = require('./routes/home');
 var user = require('./routes/user');
+var tweet = require('./routes/tweet');
 
 /**
  * function restrict(req, res, next) {
@@ -30,7 +31,7 @@ module.exports = function(app){
    /**
     * Tweet Routes - Make tweets, view tweets, etc
     */
-
+   app.get('/tweet/testtweet', tweet.test);
 
    /**
     * Profile Routes - View Profile, user tweets, etc

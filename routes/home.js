@@ -8,7 +8,6 @@ module.exports = {
          title: 'GrassTweets.com'
          , user: req.user
       });
-      console.log(req.user);
    },
 
    // app.get('/loginError'...)
