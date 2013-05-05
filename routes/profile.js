@@ -6,6 +6,7 @@ module.exports = {
    // app.get('/profile', restrict, profile.mine);
    mine: function(req, res, next) {
       res.render('myprofile.jade', {
+         title: 'Your GrassTweets Profile',
          user: req.user
       })
    },
@@ -18,6 +19,7 @@ module.exports = {
          delete req.session.message;
       } 
       res.render('state.jade', {
+         title: 'GrassTweets: Select your State',
          user: req.user,
          message: message
       });
@@ -41,9 +43,10 @@ module.exports = {
 
    // app.get('/profile/:uname', profile.display); // query based on twitter username
    display: function(req, res, next) {
-      User.findOne({ tid: req.params.uname }, function(err, profile) {
+      User.findOne({ 'username' : req.params.uname }, function(err, profile) {
          if (err) { next(err); }
          res.render('profile.jade', {
+            title: 'GrassTweets: @' + profile.username,
             user: req.user,
             profile: profile
          });

@@ -64,6 +64,7 @@ module.exports = {
          Rep.find({ state: req.user.state }, function(err, reps) {
             if (err) { next(err); }
             res.render('tweetApp.jade', {
+               title: 'Send a Tweet with GrassTweets',
                user: req.user,
                reps: reps
             });
@@ -76,9 +77,12 @@ module.exports = {
 
    // app.get('/tweet/:id')
    display: function(req, res, next) {
-      Tweet.findById(req.params.id, function(err, tweet) {
+      Tweet.findOne({'_id':req.params.id})
+         .populate('user')
+         .exec(function(err, tweet) {
          if (err) { next(err); }
          res.render('tweet.jade', {
+            title: 'A GrassTweet from ' + tweet.user.username,
             user: req.user,
             tweet: tweet
          });
