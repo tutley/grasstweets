@@ -10,19 +10,19 @@ block afterNav
       Also: need to add logic that if the user isn't found, and the user is 
       logged in, they should tweet the person to get them to join grasstweets.com
 
-   h3 Under Construction
-   p Something awesome will be here soon!
+   h3 @#{profile.username} on GrassTweets
+   p This is the basic profile page
    div.row-fluid
       div.well
          p
             b Name
             | &nbsp;- #{profile.name}
          p
-            b Username
-            | &nbsp;- #{profile.username}
-         p
             b Twitter Id
             | &nbsp;- #{profile.tid}
+         p
+            b State
+            | &nbsp;- #{profile.state}
 
 block modals
 

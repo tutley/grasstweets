@@ -11,7 +11,6 @@ module.exports = {
          state = req.user.state;
       }
       Rep.find({ state : state }, function(err, reps) {
-         console.log(reps);
          res.render('repsMain.jade', {
             title: 'Elected Officials on Twitter - GrassTweets.com',
             user: req.user,

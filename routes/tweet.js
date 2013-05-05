@@ -23,6 +23,7 @@ var Rep = require('../models/rep');
 function sendATweet(user, message, reps, callback) {
    var results = [];
    var error = null;
+   var fullMessage = '';
    // Setup the Twitter API interface
    var T = new Twit({
       consumer_key: config.twitter.consumerKey
@@ -32,9 +33,10 @@ function sendATweet(user, message, reps, callback) {
    });
    // iterate through each rep, send the tweet, and add the repID
    reps.forEach(function(rep) {
+      fullMessage = rep.twitterName + ' message';
       /*
       T.post('statuses/update', 
-         { status: message, trim_user: true }, 
+         { status: fullMessage, trim_user: true }, 
          function(err, reply) {
             if (err) {
                error = err; 
@@ -70,7 +72,7 @@ module.exports = {
             });
          });
       } else {
-         req.session.message = 'First we need to know your state of residence';
+         req.session.message = 'First we need to know your state of residence.';
          res.redirect('/profile/state');
       }
    },

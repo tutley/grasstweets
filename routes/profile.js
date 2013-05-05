@@ -1,6 +1,8 @@
 // profile.js - routes for user profile displays, etc
 var User = require('../models/user');
 
+var states = require('../states');
+
 module.exports = {
 
    // app.get('/profile', restrict, profile.mine);
@@ -12,6 +14,7 @@ module.exports = {
    },
 
    // app.get('/profile/state')
+   // map link http://i.imgur.com/iVVUOwz.png
    state: function (req, res, next) {
       var message = null;
       if (req.session.message) {
@@ -21,7 +24,8 @@ module.exports = {
       res.render('state.jade', {
          title: 'GrassTweets: Select your State',
          user: req.user,
-         message: message
+         message: message,
+         states: states
       });
    },
 
