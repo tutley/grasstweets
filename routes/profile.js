@@ -5,7 +5,7 @@ module.exports = {
 
    // app.get('/profile', restrict, profile.mine);
    mine: function(req, res, next) {
-      res.render('myprofile.jade', {
+      res.render('myProfile.jade', {
          title: 'Your GrassTweets Profile',
          user: req.user
       })
