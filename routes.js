@@ -3,8 +3,9 @@ var passport = require('passport');
 
 //Include Routing Subfiles
 var home = require('./routes/home');
-var user = require('./routes/user');
+var profile = require('./routes/profile');
 var tweet = require('./routes/tweet');
+var reps = require('./routes/reps');
 
 /**
  * function restrict(req, res, next) {
@@ -12,32 +13,46 @@ var tweet = require('./routes/tweet');
  * and can be used in any route that requires auth
  */
 function restrict(req, res, next) {
-  if (req.session.user) {
+  if (req.user) {
     next();
   } else {
-    req.session.error = 'Access denied!';
     res.redirect('/login');
   }
 }
 
 module.exports = function(app){
-
+// be sure to put any variable routes after any static routes (same path)
    /**
     * Home Routes - Home page, about, contact, etc
     */
    app.get('/', home.index);
+   app.get('/login', home.login);
    app.get('/loginError', home.loginError);
    app.get('/about', home.about);
 
    /**
     * Tweet Routes - Make tweets, view tweets, etc
     */
-   app.get('/tweet/testtweet', tweet.test);
+   app.get('/tweet', restrict, tweet.main);
+   app.post('/tweet', restrict, tweet.send);
+
+   app.get('/tweet/:id', tweet.display); // where id is the object id of the tweet in the db
 
    /**
     * Profile Routes - View Profile, user tweets, etc
     */
+   app.get('/profile', restrict, profile.mine);
+   app.get('/profile/state', restrict, profile.state);
+   app.post('/profile/state', restrict, profile.changeState);
 
+   app.get('/profile/:uname', profile.display); // query based on twitter username
+
+   /**
+    * Reps Routes - View Rep Profile, Reps for a state, etc
+    */
+   //app.get('/reps')
+   //app.get('/reps/state/:state')
+   //app.get('/reps/one/:uname') - uname being the twitter username of a representative
 
    /**
     * Passport Twitter auth routes

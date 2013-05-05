@@ -7,8 +7,11 @@ var ObjectId = Schema.ObjectId;
 var TweetSchema = new Schema({
    message : String,
    reps: [{
-      type: ObjectId,
-      ref: 'Rep'
+      id : {
+         type: ObjectId,
+         ref: 'Rep'         
+      },
+      tweetId: String
    }],
    user: {
       type: ObjectId,

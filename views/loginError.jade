@@ -1,0 +1,22 @@
+extends index
+
+block metas
+   meta(name='description', content='GrassTweets.com Login Error.')
+
+block afterNav
+   div.page-header
+      h2 Login Error!
+   div.row-fluid
+      div.span12
+        p We're not sure what happened, but something went wrong.
+        a(href='/auth/twitter') Click here to try again
+
+block modals
+   //- this is where you can add hidden divs and other elements that you'll want to display
+      dynamically on the page. 
+
+block pageScripts
+   //- This is where any page specific scripts go   
+      Keep in mind that these are included in every page already:
+      script(src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')
+      script(src='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js')
