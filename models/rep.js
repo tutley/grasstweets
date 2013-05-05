@@ -17,7 +17,11 @@ var RepSchema = new Schema({
    addedBy: {
       type: ObjectId,
       ref: 'User'
-   }
+   },
+   incoming: [{
+      type: ObjectId,
+      ref: 'Tweet'
+   }]
 }, {
    collection: "reps"
 });

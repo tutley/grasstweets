@@ -34,13 +34,13 @@ function sendATweet(user, message, reps, callback) {
    reps.forEach(function(rep) {
       /*
       T.post('statuses/update', 
-         { status: message }, 
+         { status: message, trim_user: true }, 
          function(err, reply) {
             if (err) {
                error = err; 
                next(err); 
             }
-            // do something with the reply object
+            // add this tweet to the successful results
             results.push({
                'id' : rep._id,
                'tweetId' : reply.id
@@ -108,6 +108,10 @@ module.exports = {
             // update the user doc with this tweet
             User.update({ '_id' : req.user._id }, {$push: { 'tweets' : tweet._id } }, function(err){
                if (err) { next(err); }
+               // finally, update each rep's doc with this tweet
+               results.forEach(function(result) {
+                  Rep.update({ '_id' : result.id }, {$push : { 'incoming' : tweet._id }});
+               });
                res.redirect('/tweet/' + tweet._id);
             });
          });

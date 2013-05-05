@@ -50,9 +50,11 @@ module.exports = function(app){
    /**
     * Reps Routes - View Rep Profile, Reps for a state, etc
     */
-   //app.get('/reps')
-   //app.get('/reps/state/:state')
-   //app.get('/reps/one/:uname') - uname being the twitter username of a representative
+   app.get('/reps', reps.main);
+
+   app.get('/reps/state/:state', reps.fetchState);
+
+   app.get('/reps/:uname', reps.one); //- uname being the twitter username of a representative
 
    /**
     * Passport Twitter auth routes

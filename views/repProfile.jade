@@ -1,0 +1,36 @@
+extends index
+//- better have that first line or none of this will work!
+
+   ***************************************************************************
+   I have set this layout up so that you never need to do a "block appends"
+   But, you do need to include each block, even if it is empty, so that you
+   don't load unecessary code from index (although it won't break anything)
+   ***************************************************************************
+
+block metas
+   //- meta(name='description', content='This is an example description!')
+      Here you can dynamically control the meta tags for each page
+      This is especially useful for social networking sites like facebook that grab information
+      from these meta tags to determine how links to your site appear on their site
+
+      Keep in mind that index is providing these for each page already:
+      meta(name='viewport', content='width=device-width, initial-scale=1.0')
+      meta(name='title', content='#{title}')
+         
+
+block afterNav
+   //- This is where the page content goes
+      Please remember that everything here is inside of a container-fluid
+      You should use row-fluid divs inside of here
+   h3 Under Construction
+   p Something awesome will be here soon!
+
+block modals
+   //- this is where you can add hidden divs and other elements that you'll want to display
+      dynamically on the page. 
+
+block pageScripts
+   //- This is where any page specific scripts go   
+      Keep in mind that these are included in every page already:
+      script(src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')
+      script(src='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js')
