@@ -39,7 +39,7 @@ module.exports = {
                req.session.message = 'Something went terribly wrong. Please Try again <BR><BR>' + err.message;
                res.redirect('/profile/state');
             } else {
-               res.redirect('/tweet');
+               res.redirect('/profile');
             }
          });
       });

@@ -24,21 +24,16 @@ block afterNav
          input(type='hidden', name='state', value='#{currState}', id='state')
 
 block modals
-   div.modal.hide.fade.span2(id='confirmModal')
+   div.modal.hide.fade(id='confirmModal')
       div.modal-body
          p(id='modalMessage')
+         div.pull-right Are you sure?
       div.modal-footer
          button.btn(data-dismiss='modal', aria-hidden='true') No
-         button.btn.ptn-primary(id='confirmed') Yes
+         button.btn.btn-primary(id='confirmed') Yes
 
 block pageScripts
    script(src='/js/ammap/ammap.js')
    script(src='/js/ammap/usaLow.js')
    script(src='/js/profileState.js')
-
-
-//- TODO
-   1) Change color of map areas
-   2) on click, popup a confirm dialog, submit form on yes
-   3) auto-select user's current state
 

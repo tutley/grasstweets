@@ -23,6 +23,9 @@ $(document).ready(function(){
            getAreasFromMap:true                
        };
    
+      if (currentState != '') {
+         dataProvider.areas = [{ id: currentState, color:'#013435'}];
+      }
        map.dataProvider = dataProvider;
    
        map.areasSettings = {
@@ -31,14 +34,10 @@ $(document).ready(function(){
            color: '#028d79'
        };
 
-       if (currentState != '') {
-//         map.selectObject({'id': currentState});
-       }
-
-       map.addListener("clickMapObject", function(event){
-         var selState = event.mapObject.id.replace(/US-/, '');
+       map.addListener("clickMapObject", function(stateClicked){
+         var selState = stateClicked.mapObject.id.replace(/US-/, '');
          $('#state').val(selState);
-         $('#modalMessage').html('You selected <b>' + event.mapObject.title + '</b> - Are you sure?');
+         $('#modalMessage').html('You selected <b>' + stateClicked.mapObject.title + '</b>');
          $('#confirmModal').modal('show');
          $('#confirmModal').on('hide', function() {
             map.zoomTo(1,0,0);

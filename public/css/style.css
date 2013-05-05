@@ -8,3 +8,10 @@
 body {
    padding-top: 60px;
 }
+
+#confirmModal.modal {
+    width: 40%;
+    left: 30%;
+    top: 20%;
+    margin: auto auto auto auto;
+}
