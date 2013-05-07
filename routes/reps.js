@@ -34,14 +34,16 @@ module.exports = {
 
    //app.get('/reps/:uname', reps.one); //- uname being the twitter username of a representative
    one: function(req, res, next) {
-      Rep.findOne({ 'twitterName' : req.params.uname })
-         .populate('incoming')
-         .exec(function(err, rep) {
+      Rep.findOne({ 'twitterName' : req.params.uname }, function(err, rep) {
+         if (err) { next(err); }
+         Tweet.find({ reps: rep._id }, function(err, tweets) {
+            if (err) { next(err); }
             res.render('repProfile.jade', {
                title: rep.name + ' - Grastweets.com',
                user: req.user,
                rep: rep
             });
+         });
       });
    },
 

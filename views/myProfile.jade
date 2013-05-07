@@ -22,7 +22,9 @@ block afterNav
    h3 @#{user.username} on GrassTweets
    p This is the basic profile page
    div.row-fluid
-      div.well
+      div.span1
+         img(src='#{user.photo}')
+      div.span6.well
          p
             b Name
             | &nbsp;- #{user.name}
@@ -32,6 +34,7 @@ block afterNav
          p
             b State
             | &nbsp;- #{user.state}
+      div.span5
 
    div.row-fluid
       a(href='/profile/state') Change Your State

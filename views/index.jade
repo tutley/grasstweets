@@ -27,6 +27,8 @@ html
                               | Hi #{user.name}
                               b.caret
                            ul.dropdown-menu
+                              //-li
+                                 a(href='/needmorestuff')
                               li
                                  a(href='/logout') Log Out
                      else
@@ -46,19 +48,45 @@ html
          block afterNav
             div.page-header
                h2 Welcome to GrassTweets.com!
-            div.row-fluid
-               div.span2
-                  |&nbsp;
-               div.span8.well
-                  if user
-                     p Welcome back, #{user.name}
+            if user
+               div.row-fluid
+                  div.span1
+                  div.span10
+                     h4 Hello again, #{user.name}
+                     p
+                        a(href='/tweet') Send a Tweet
+                     p
+                        a(href='/profile') View Your Profile
+                     p
+                        a(href='/reps') View Your Reps
                      p
                         a(href='/logout') Log Out
-                  else
-                     a(href='/auth/twitter') Login with Twitter!   
-               div.span2
-                  |&nbsp;
-      
+                  div.span1
+            else
+               div.row-fluid
+                  div.span1
+                  div.span10
+                     h4 First time here?
+                     p.
+                        GrassTweets.com is a simple website. Our goal is to connect you with your
+                         elected officials, by sending tweets that mention them specifically. 
+                         For example:
+                  div.span1
+               div.row-fluid
+                  div.span3               
+                  div.span6.well
+                     | "@SoAndSoforCongress Thanks for voting on that bill! Please support H.3101!"
+                  div.span3
+               div.row-fluid
+                  div.span1
+                  div.span10
+                     p.
+                         Click the "Sign in with Twitter" button below to get started. If you 
+                         don't have an account, don't worry, one will be created for you. Welcome!
+                     a(href='/auth/twitter')
+                        img(src='/img/twittersignin.png', border='0')
+                  div.span1      
+
       //- modals and other hidden things
       block modals
 

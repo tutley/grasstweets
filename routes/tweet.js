@@ -110,10 +110,6 @@ module.exports = {
             // update the user doc with this tweet
             User.update({ '_id' : req.user._id }, {$push: { 'tweets' : tweet._id } }, function(err){
                if (err) { next(err); }
-               // finally, update each rep's doc with this tweet
-               results.forEach(function(result) {
-                  Rep.update({ '_id' : result.id }, {$push : { 'incoming' : tweet._id }});
-               });
                res.redirect('/tweet/' + tweet._id);
             });
          });

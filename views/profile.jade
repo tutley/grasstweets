@@ -13,7 +13,9 @@ block afterNav
    h3 @#{profile.username} on GrassTweets
    p This is the basic profile page
    div.row-fluid
-      div.well
+      div.span1
+         img(src='#{profile.photo}')
+      div.span6.well
          p
             b Name
             | &nbsp;- #{profile.name}
@@ -23,6 +25,7 @@ block afterNav
          p
             b State
             | &nbsp;- #{profile.state}
+      div.span5
 
 block modals
 

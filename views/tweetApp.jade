@@ -1,36 +1,63 @@
 extends index
-//- better have that first line or none of this will work!
-
-   ***************************************************************************
-   I have set this layout up so that you never need to do a "block appends"
-   But, you do need to include each block, even if it is empty, so that you
-   don't load unecessary code from index (although it won't break anything)
-   ***************************************************************************
 
 block metas
-   //- meta(name='description', content='This is an example description!')
-      Here you can dynamically control the meta tags for each page
-      This is especially useful for social networking sites like facebook that grab information
-      from these meta tags to determine how links to your site appear on their site
-
-      Keep in mind that index is providing these for each page already:
-      meta(name='viewport', content='width=device-width, initial-scale=1.0')
-      meta(name='title', content='#{title}')
-         
+   meta(name='description', content='This is the tweet sending page on GrassTweets.com, used for sending tweets to elected representatives.')         
 
 block afterNav
-   //- This is where the page content goes
-      Please remember that everything here is inside of a container-fluid
-      You should use row-fluid divs inside of here
-   h3 Under Construction
-   p Something awesome will be here soon!
+   div.row-fluid
+      h2 Send a Tweet!
+   div.row-fluid
+      div.span1
+      div.span10
+         h4 Step 1 - Select the Recipients
+         - var maxChars = 139
+         - var longestName = 0
+         p
+            each rep in reps
+               if (rep.twitterName.length > longestName)
+                  - longestName = rep.twitterName.length
+               | #{rep.twitterName},&nbsp;
+      div.span1
+   div.row-fluid
+      div.span1
+      div.span10
+         h4 Step 2 - Compose your message
+      div.span1
+   div.row-fluid
+      div.span1
+      form(id='tweetForm')
+         div.span10
+            - var charsAvailable = maxChars - longestName
+            div.span7.well
+               textarea.input-block-level(
+                  name='message'
+                  id='message'
+                  rows='3')
+               a.btn.btn-small.btn-inverse(id='shorten') Shorten URLs
+               span.pull-right
+                  span Chars left:&nbsp;
+                  span(id='charsCounter') #{charsAvailable}
+            div.clearfix
+            div.span5
+               h4 Step 3 - Send it!
+            div.span3
+               button.btn Cancel
+               |&nbsp;
+               button.btn.btn-primary Tweet!
+
+      div.span1
+   div.row-fluid
+      div.span1
+      div.span10
+      div.span1
+
+
 
 block modals
    //- this is where you can add hidden divs and other elements that you'll want to display
       dynamically on the page. 
 
 block pageScripts
-   //- This is where any page specific scripts go   
-      Keep in mind that these are included in every page already:
-      script(src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')
-      script(src='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js')
+   script(src='/js/tweetApp.js')
+
+
