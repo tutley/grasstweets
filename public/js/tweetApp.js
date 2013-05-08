@@ -31,24 +31,41 @@ function sendTweet() {
  * @param  {String} url The input url, pre-shortened
  */
 function getShort(url, callback) {
-   var apiURL = 'http://is.gd/create.php?format=simple&url=' + url;
-   $.get(apiURL).done(function(data){
-      callback(url, data);
-   }).fail(function() {
-      console.log('shortening failed for ' + url);
-      callback(url, url+' fail ');
+   var apiKey = 'AIzaSyAT1kM2nM7-hmqrb5A4uoJrjoWY1zTsah0';
+   gapi.client.setApiKey(apiKey);
+   var longurl = url;
+
+   gapi.client.load('urlshortener', 'v1', function() {
+       var request = gapi.client.urlshortener.url.insert({
+           'resource': {
+               'longUrl': longurl
+           }
+       });
+       var resp = request.execute(function(resp) {
+           if (resp.error) {
+               console.log(resp.error.message);
+               callback(url, url);
+           } else {
+               callback(url, resp.id);
+           }
+       });
    });
 }
 
 // when page loads, do this
 $(document).ready(function(){
+
    // watch the message box and adjust the chars left as needed
    var maxChars = parseInt($('#charsCounter').text());
    $('#message').keyup(function(){
       var allowedChars = maxChars - $('#message').val().length;
       if (allowedChars < 0) {
-         $('#message').val($('#message').val().substring(0, maxChars));
-         $('#charsCounter').text('0');
+         if(/((http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?)/.test($('#message').val())) {
+            $('#shorten').click();
+         } else {
+            $('#message').val($('#message').val().substring(0, maxChars));
+            $('#charsCounter').text('0');
+         }
       } else {
          $('#charsCounter').text(allowedChars);
       }
