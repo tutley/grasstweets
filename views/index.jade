@@ -96,7 +96,21 @@ html
                          don't have an account, don't worry, one will be created for you. Welcome!
                      a(href='/auth/twitter')
                         img(src='/img/twittersignin.png', border='0')
-                  div.span1      
+                  div.span1   
+            div.row-fluid &nbsp;
+            div.row-fluid &nbsp;
+            div.row-fluid
+               div.span1 &nbsp;
+               div.span1
+                  script.
+                     var CoinWidget_Config = {
+                        address : '1AAXC4zQtazC4ioeBssXdKmFpVxrAizmLC',
+                        counter : 'hide',
+                        text_label : 'GrassTweets Bitcoin Address:'
+                     };
+                  script(src='http://c.coinwidget.com/widget.js')
+               div.span10
+                  p &nbsp;If you like GrassTweets.com, please consider a Bitcoin Donation
 
       //- modals and other hidden things
       block modals
