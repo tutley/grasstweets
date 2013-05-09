@@ -11,7 +11,7 @@ module.exports = {
             skip : 0,
             limit : 10,
             sort : {
-               created : 1
+               created : -1
             }
          })
          .populate('user')
