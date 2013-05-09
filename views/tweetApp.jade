@@ -6,30 +6,77 @@ block metas
 block afterNav
    div.row-fluid
       h2 Send a Tweet!
-   div.row-fluid
-      div.span1
-      div.span10
-         h4 Step 1 - Select the Recipients
-         - var maxChars = 139
-         - var longestName = 0
-         p
-            each rep in reps
-               if (rep.twitterName.length > longestName)
-                  - longestName = rep.twitterName.length
-               | #{rep.twitterName},&nbsp;
-      div.span1
-   div.row-fluid
-      div.span1
-      div.span10
-         h4 Step 2 - Compose your message
-      div.span1
-   div.row-fluid
-      div.span1
-      form(id='tweetForm')
+   form(id='tweetForm')
+      div.row-fluid
+         div.span1
          div.span10
-            - var charsAvailable = maxChars - longestName
+            h4 Step 1 - Select the Legislative Body
+            - var maxChars = 138
+            - var longestName = 0
+            div.row.fluid
+               div.span1
+                  label.checkbox.inline
+                     strong Body
+               div.span6
+                  each category in categories
+                     label.checkbox.inline
+                        input.categories(
+                           type='checkbox'
+                           value='#{category.short}')
+                        | #{category.name}
+               div.span1
+                  label.checkbox.inline
+                     strong Party
+               div.span2
+                  each party in parties
+                     label.checkbox.inline
+                        input.parties(
+                           type='checkbox'
+                           checked
+                           value='#{party.name}')
+                        | #{party.short}
+            div.row-fluid.chkBoxDiv
+               h4 Step 2 - Select the Recipients&nbsp;
+                  small (selected by default)
+               each category in categories
+                  ul.thumbnails.hide(id='#{category.short}')
+                     h5= category.name
+                     - var rCount = 0;
+                     each rep in reps
+                        if rep.body == category.name
+                           - rCount++;
+                           if (rCount>5)
+                              - rCount = 1;
+                              ul.thumbnails
+                           li.span2
+                              div(class='thumbnail repDiv #{rep.party}')
+                                 //- var photo = rep.photo || 'http://a0.twimg.com/sticky/default_profile_images/default_profile_6_normal.png'
+                                    img(
+                                       src='#{photo}'
+                                       alt='#{rep.twitterName}')
+                                 p #{rep.name} (#{rep.party.substr(0,1)})
+                                 p.text-center
+                                    input.repId(
+                                       type='hidden'
+                                       value='#{rep._id}'
+                                       )
+                                    input.repTwit(
+                                       type='hidden'
+                                       value='#{rep.twitterName}')
+
+         div.span1
+      div.row-fluid
+         div.span1
+         div.span10
+            h4 Step 3 - Compose your message
+         div.span1
+      div.row-fluid
+         div.span1
+         div.span10
+            - var charsAvailable = maxChars
             div.span7.well
                textarea.input-block-level(
+                  autofocus
                   name='message'
                   id='message'
                   rows='3')
@@ -39,11 +86,11 @@ block afterNav
                   span(id='charsCounter') #{charsAvailable}
             div.clearfix
             div.span5
-               h4 Step 3 - Send it!
+               h4 Step 4 - Send it!
             div.span3
-               button.btn Cancel
+               a.btn(href='/tweet') Cancel
                |&nbsp;
-               button.btn.btn-primary Tweet!
+               a.btn.btn-primary(href='#', id='tweetBtn') Tweet!
 
       div.span1
    div.row-fluid
@@ -54,8 +101,15 @@ block afterNav
 
 
 block modals
-   //- this is where you can add hidden divs and other elements that you'll want to display
-      dynamically on the page. 
+   div.modal.hide.fade(id='confirmModal')
+      div.modal-header
+         h3 Confirm Tweet
+      div.modal-body
+         p(id='modalMessage')
+         div.pull-right Are you sure you want to send it?
+      div.modal-footer
+         button.btn(data-dismiss='modal', aria-hidden='true') Cancel
+         a.btn.btn-primary(id='confirmed', href='#') Tweet it!
 
 block pageScripts
    script(src='/js/tweetApp.js')

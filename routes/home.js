@@ -34,4 +34,12 @@ module.exports = {
       });
    },
 
+   // app.get('/about/tos'...)
+   tos: function(req, res) {
+      res.render('tos.jade', {
+         title: 'GrassTweets.com Terms of Service'
+         , user: req.user
+      });
+   },
+
 }

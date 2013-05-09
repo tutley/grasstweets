@@ -23,12 +23,10 @@ module.exports = {
    fetchState: function(req, res, next) {
       Rep.find({ state : req.params.state }, function(err, reps) {
          if (err) {
-            res.json(500, err);
-            res.end();
+            res.send(500, { 'error': err.message });
             next(err);
          }
-         res.json(200, reps);
-         res.end();
+         res.send(200, reps);
       });
    },
 

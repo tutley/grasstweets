@@ -29,12 +29,14 @@ module.exports = function(app){
    app.get('/login', home.login);
    app.get('/loginError', home.loginError);
    app.get('/about', home.about);
+   app.get('/about/tos', home.tos);
 
    /**
     * Tweet Routes - Make tweets, view tweets, etc
     */
    app.get('/tweet', restrict, tweet.main);
    app.post('/tweet', restrict, tweet.send);
+   app.get('/tweet/status', restrict, tweet.status);
 
    app.get('/tweet/:id', tweet.display); // where id is the object id of the tweet in the db
 

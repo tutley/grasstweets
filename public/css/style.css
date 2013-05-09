@@ -15,3 +15,17 @@ body {
     top: 20%;
     margin: auto auto auto auto;
 }
+
+div.thumbnail.repDiv.Republican.well {
+   padding: 3px;
+   background-color: #faa;
+}
+
+div.thumbnail.repDiv.Democrat.well {
+   padding: 3px;
+   background-color: #aaf;
+}
+
+div.thumbnail.repDiv.Other.well {
+   padding: 3px;
+}
