@@ -1,16 +1,22 @@
 // profile.js - routes for user profile displays, etc
 var User = require('../models/user');
+var Tweet = require('../models/tweet');
 
+// TODO: delete this, no longer needed
 var states = require('../states');
 
 module.exports = {
 
    // app.get('/profile', restrict, profile.mine);
    mine: function(req, res, next) {
-      res.render('myProfile.jade', {
-         title: 'Your GrassTweets Profile',
-         user: req.user
-      })
+      Tweet.find({'user': req.user._id}, function(err, tweets){
+         if (err) { next(err);}
+         res.render('myProfile.jade', {
+            title: 'Your GrassTweets Profile',
+            user: req.user,
+            tweets: tweets
+         });
+      });
    },
 
    // app.get('/profile/state')
@@ -47,7 +53,9 @@ module.exports = {
 
    // app.get('/profile/:uname', profile.display); // query based on twitter username
    display: function(req, res, next) {
-      User.findOne({ 'username' : req.params.uname }, function(err, profile) {
+      User.findOne({ 'username' : req.params.uname })
+         .populate('tweets')
+         .exec(function(err, profile) {
          if (err) { next(err); }
          res.render('profile.jade', {
             title: 'GrassTweets: @' + profile.username,

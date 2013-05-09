@@ -8,19 +8,10 @@ extends index
    ***************************************************************************
 
 block metas
-   //- meta(name='description', content='This is an example description!')
-      Here you can dynamically control the meta tags for each page
-      This is especially useful for social networking sites like facebook that grab information
-      from these meta tags to determine how links to your site appear on their site
-
-      Keep in mind that index is providing these for each page already:
-      meta(name='viewport', content='width=device-width, initial-scale=1.0')
-      meta(name='title', content='#{title}')
-         
+   //- meta(name='description', content='This is an example description!')         
 
 block afterNav
    h3 @#{user.username} on GrassTweets
-   p This is the basic profile page
    div.row-fluid
       div.span1
          img(src='#{user.photo}')
@@ -35,6 +26,13 @@ block afterNav
             b State
             | &nbsp;- #{user.state}
       div.span5
+   div.row-fluid
+      h5 Tweets:
+      each tweet, i in tweets
+         dl.dl-horizontal
+            dt #{i+1}
+            dd
+               a(href='/tweet/#{tweet._id}') #{tweet.created}
 
    div.row-fluid
       a(href='/profile/state') Change Your State

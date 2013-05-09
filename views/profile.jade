@@ -11,7 +11,6 @@ block afterNav
       logged in, they should tweet the person to get them to join grasstweets.com
 
    h3 @#{profile.username} on GrassTweets
-   p This is the basic profile page
    div.row-fluid
       div.span1
          img(src='#{profile.photo}')
@@ -26,6 +25,14 @@ block afterNav
             b State
             | &nbsp;- #{profile.state}
       div.span5
+   div.row-fluid
+      h5 Tweets:
+      each tweet, i in profile.tweets
+         dl.dl-horizontal
+            dt #{i+1}
+            dd
+               a(href='/tweet/#{tweet._id}') #{tweet.created}
+
 
 block modals
 
