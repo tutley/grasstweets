@@ -13,7 +13,8 @@ block afterNav
    h3 @#{profile.username} on GrassTweets
    div.row-fluid
       div.span1
-         img(src='#{profile.photo}')
+         - var photo = profile.photo || ''
+         img(src='#{photo}')
       div.span6.well
          p
             b Name

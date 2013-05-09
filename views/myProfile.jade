@@ -14,7 +14,8 @@ block afterNav
    h3 @#{user.username} on GrassTweets
    div.row-fluid
       div.span1
-         img(src='#{user.photo}')
+         - var photo = user.photo || ''
+         img(src='#{photo}')
       div.span6.well
          p
             b Name
