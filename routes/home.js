@@ -1,12 +1,27 @@
 // home.js - top level routes that don't have dynamic parts
 
+var Tweet = require('../models/tweet');
+
 module.exports = {
 
    // app.get('/'...)
    index: function(req, res) {
-      res.render('index.jade', {
-         title: 'GrassTweets.com'
-         , user: req.user
+      Tweet.find({}, null, 
+         {
+            skip : 0,
+            limit : 10,
+            sort : {
+               created : 1
+            }
+         })
+         .populate('user')
+         .exec(function(err, tweets){
+         if (err) { next(err);}
+         res.render('index.jade', {
+            title: 'GrassTweets.com'
+            , user: req.user
+            , tweets: tweets
+         });  
       });
    },
 
