@@ -24,9 +24,12 @@ block afterNav
             dt Recipients
             each rep in tweet.reps
                dd 
-                  a(
-                     href='http://twitter.com/#{tweet.user.username}/status/#{rep.tweetId}'
-                     target='_new') #{rep.id.twitterName}
+                  if (rep.tweetId == 'ERROR')
+                     | Error tweeting to #{rep.id.twitterName}
+                  else
+                     a(
+                        href='http://twitter.com/#{tweet.user.username}/status/#{rep.tweetId}'
+                        target='_new') #{rep.id.twitterName}
 
 
 block modals
