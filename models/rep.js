@@ -7,6 +7,11 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 
+var Correction = new Schema({
+   field: String,
+   value: String
+});
+
 var RepSchema = new Schema({
    twitterName : String,
    name: String,
@@ -17,7 +22,8 @@ var RepSchema = new Schema({
    addedBy: {
       type: ObjectId,
       ref: 'User'
-   }
+   },
+   corrections: [Correction]
 }, {
    collection: "reps"
 });

@@ -19,7 +19,9 @@ var AddrepSchema = new Schema({
       ref: 'User'
    }
    confirmed: Boolean,
-   denied: Boolean
+   denied: Boolean,
+   added: {type: Date, default: Date.now},
+   modded: Date
 }, {
    collection: "addreps"
 });

@@ -122,17 +122,21 @@ module.exports = {
             next(err); 
          }
          // update the user doc with this tweet
-         User.update({ '_id' : req.user._id }, {$push: { 'tweets' : tweet._id } });
-
-         // lookup the rep data and send the tweet
-         Rep.find({'_id': { $in : data.reps }}, function(err, reps){
+         User.update({ '_id' : req.user._id }, {$push: { 'tweets' : tweet._id }}, function(err){
             if (err) {
-                  res.send(500, {'error':err.message});
-                  next(err);
-               }
-            // send the tweet(s)
-            sendATweet(req.user, tweet, reps);
-            res.send(200, {'tweetURL':'/tweet/'+tweet._id});
+               res.send(500, {'error':err.message});
+               next(err);
+            }
+            // lookup the rep data and send the tweet
+            Rep.find({'_id': { $in : data.reps }}, function(err, reps){
+               if (err) {
+                     res.send(500, {'error':err.message});
+                     next(err);
+                  }
+               // send the tweet(s)
+               sendATweet(req.user, tweet, reps);
+               res.send(200, {'tweetURL':'/tweet/'+tweet._id});
+            });            
          });
       });
    },

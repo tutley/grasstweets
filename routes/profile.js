@@ -54,8 +54,8 @@ module.exports = {
    // app.get('/profile/:uname', profile.display); // query based on twitter username
    display: function(req, res, next) {
       User.findOne({ 'username' : req.params.uname })
-         .populate('tweets')
-         .exec(function(err, profile) {
+      .populate('tweets')
+      .exec(function(err, profile) {
          if (err) { next(err); }
          res.render('profile.jade', {
             title: 'GrassTweets: @' + profile.username,
