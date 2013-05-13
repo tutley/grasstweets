@@ -9,7 +9,9 @@ var ObjectId = Schema.ObjectId;
 
 var Correction = new Schema({
    field: String,
-   value: String
+   value: String,
+   submitted: { type: Date, default: Date.now },
+   by: { type: ObjectId, ref: 'User' }
 });
 
 var RepSchema = new Schema({

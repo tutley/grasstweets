@@ -17,7 +17,7 @@ var AddrepSchema = new Schema({
    addedBy: {
       type: ObjectId,
       ref: 'User'
-   }
+   },
    confirmed: Boolean,
    denied: Boolean,
    added: {type: Date, default: Date.now},

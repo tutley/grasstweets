@@ -54,7 +54,11 @@ module.exports = function(app){
     */
    app.get('/reps', reps.main);
 
-   app.get('/reps/state/:state', reps.fetchState);
+   app.get('/reps/add', restrict, reps.addForm);
+   app.post('/reps/add', restrict, reps.add);
+   app.get('/reps/add/view', restrict, reps.viewAdds);
+   app.get('/reps/fix/:rep', restrict, reps.fixForm);
+   app.post('/reps/fix', restrict, reps.fix);
 
    app.get('/reps/:uname', reps.one); //- uname being the twitter username of a representative
 

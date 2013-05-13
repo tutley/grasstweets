@@ -1,29 +1,31 @@
 extends index
 
 block metas
-   meta(name='description', content='This page displays all of the representatives that are in the GrassTweets.com system, and provides a form for users to suggest additions!')
+   meta(name='description', content='These are all of the pending representatives on GrassTweets.com')
+
+         
 
 block afterNav
-   h3 View GrassTweets Representatives
-   //- This view is passed the 'reps' object containing all of the reps in the system
-      for the current user's state. It is also passed the 'states' object containing
-      all of the states that currently have reps in the system, and the 'currState' variable
-      which denotes the current state
+   h3 View Suggested Representatives
+      //- This view is passed the 'reps' object containing all of the reps in the system
+         for the current user's state. It is also passed the 'states' object containing
+         all of the states that currently have reps in the system, and the 'currState' variable
+         which denotes the current state
    div.row-fluid
       div.span6
          form(
             id='stateChange'
-            action='/reps'
+            action='/reps/add/view'
             method='GET')
             label Select a State: &nbsp;
-               select.span2(name='state')
+               select(name='state')
                   each state in states
-                     option(value='#{state}', selected=state===currState)= state
+                     option(value='#{state.abbr}', selected=state.abbr===currState)= state.name
       div.span6
          | Are we missing someone? 
          a(href='/reps/add') Suggest an Addition
    div.row-fluid
-      if (reps)
+      if (reps.length > 0)
          table.table.table-bordered.table-condensed
             thead
                tr
@@ -31,20 +33,24 @@ block afterNav
                   th Twitter Name
                   th Party
                   th Body
-                  th Suggest Edit
+                  th Added By
+                  th Suggested
             tbody
                each rep in reps
                   tr
-                     td: a(href='/reps/#{rep.twitterName}')= rep.name
+                     td= rep.name
                      td= rep.twitterName
                      td= rep.party
                      td= rep.body
-                     td: a(href='/reps/fix/#{rep._id}')
-                        i.icon-pencil
+                     td: a(href='/profile/#{rep.addedBy.username}')= rep.addedBy.username
+                     td= moment(rep.added).fromNow()
       else
-         p There are no representatives on GrassTweets for this state. Consider 
+         p There are no suggested representatives on GrassTweets for this state. Consider 
             a(href='/reps/add') adding one!
+
 block modals
+   //- this is where you can add hidden divs and other elements that you'll want to display
+      dynamically on the page. 
 
 block pageScripts
    script.

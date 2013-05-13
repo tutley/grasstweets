@@ -1,0 +1,83 @@
+extends index
+
+block metas
+   meta(name='description', content='GrassTweets.com is all about connecting you with your representatives, so if we left somebody out then feel free to suggest an addition')
+
+block afterNav
+   //- This is where the page content goes
+      Please remember that everything here is inside of a container-fluid
+      You should use row-fluid divs inside of here
+   h3 Suggest an Addition&nbsp;
+      small Add a representative to GrassTweets
+   div.row-fluid
+      p Use this form to suggest an addition. We will review it and add the rep to the system ASAP!
+      p *Note: Please check the&nbsp;
+         a(href='/reps') current reps
+         | &nbsp;and the&nbsp;
+         a(href='/reps/add/view') pending additions
+         | &nbsp;first, to avoid duplicates.
+      form.form-horizontal(id='addRep',action='/reps/add', method='POST')
+         div.control-group
+            label.control-label(for='name') Name
+            div.controls
+               input(
+                  type='text'
+                  name='name'
+                  placeholder='John Smith'
+                  required)
+               span.help-inline.hide Some Validation Message
+         div.control-group
+            label.control-label(for='name') Twitter Username
+            div.controls
+               input(
+                  type='text'
+                  name='twitterName'
+                  placeholder='@JohnSmith'
+                  required)
+               span.help-inline.hide Some Validation Message
+         div.control-group
+            label.control-label(for='photo') Picture URL
+            div.controls
+               input(
+                  type='text'
+                  name='photo'
+                  placeholder='http://imagehoster.com/path/to/johnsmith.gif')
+               span.help-inline.hide Some Validation Message
+         div.control-group
+            label.control-label(for='state') State
+            div.controls
+               select(name='state')
+                  each state in states
+                     option(value='#{state.abbr}', selected=state.abbr===user.state)= state.name
+               span.help-inline.hide Some Validation Message
+         div.control-group
+            label.control-label(for='body') Legislative Body
+            div.controls
+               select(name='body')
+                  option(value='State House', selected) State House
+                  option(value='State Senate') State Senate
+                  option(value='US House') US House
+                  option(value='US Senate') US Senate
+               span.help-inline.hide Some Validation Message
+         div.control-group
+            label.control-label(for='party') Party
+            div.controls
+               select(name='party')
+                  option(value='Republican', selected) Republican
+                  option(value='Democrat') Democrat
+                  option(value='Other') Other
+               span.help-inline.hide Some Validation Message
+         div.control-group
+            div.controls
+               button.btn.btn-primary(type='submit') Add Rep!
+               | &nbsp; &nbsp;
+               a.btn(href='/reps') Cancel
+
+block modals
+
+block pageScripts
+
+   //- This is where any page specific scripts go   
+      Keep in mind that these are included in every page already:
+      script(src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')
+      script(src='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js')
