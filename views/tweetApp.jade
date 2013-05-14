@@ -54,15 +54,14 @@ block afterNav
                                     img(
                                        src='#{photo}'
                                        alt='#{rep.twitterName}')
-                                 p #{rep.name} (#{rep.party.substr(0,1)})
-                                 p.text-center
-                                    input.repId(
-                                       type='hidden'
-                                       value='#{rep._id}'
-                                       )
-                                    input.repTwit(
-                                       type='hidden'
-                                       value='#{rep.twitterName}')
+                                 | #{rep.name} (#{rep.party.substr(0,1)})
+                                 input.repId(
+                                    type='hidden'
+                                    value='#{rep._id}'
+                                    )
+                                 input.repTwit(
+                                    type='hidden'
+                                    value='#{rep.twitterName}')
 
          div.span1
       div.row-fluid

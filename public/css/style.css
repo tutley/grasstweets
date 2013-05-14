@@ -10,10 +10,10 @@ body {
 }
 
 #confirmModal.modal {
-    width: 40%;
-    left: 30%;
-    top: 20%;
-    margin: auto auto auto auto;
+   width: 40%;
+   left: 30%;
+   top: 20%;
+   margin: auto auto auto auto;
 }
 
 div.thumbnail.repDiv.Republican.well {
@@ -29,3 +29,4 @@ div.thumbnail.repDiv.Democrat.well {
 div.thumbnail.repDiv.Other.well {
    padding: 3px;
 }
+

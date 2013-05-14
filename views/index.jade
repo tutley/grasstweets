@@ -46,8 +46,8 @@ html
                      
       div.container-fluid   
          block afterNav
-            div.page-header
-               h2 Welcome to GrassTweets.com!
+            div.row-fluid
+               h3 Welcome to GrassTweets.com!
             if user
                div.row-fluid
                   div.span1
@@ -98,6 +98,12 @@ html
                         img(src='/img/twittersignin.png', border='0')
                   div.span1   
             div.row-fluid &nbsp;
+
+            div.row-fluid
+               div.span2
+               div.span8
+                  img(src='http://i.imgur.com/pfWPbTn.png')
+               div.span2
             div.row-fluid &nbsp;
             div.row-fluid
                div.span1 &nbsp;
@@ -111,6 +117,7 @@ html
                   script(src='http://c.coinwidget.com/widget.js')
                div.span10
                   p &nbsp;If you like GrassTweets.com, please consider a Bitcoin Donation
+
 
       //- modals and other hidden things
       block modals
