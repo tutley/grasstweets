@@ -4,6 +4,10 @@ block metas
    meta(
       name='description'
       content='This is a GrassTweet from @#{tweet.user.username} sent to #{count} representatives.')
+   meta(
+      name='twitter:description'
+      content='This is a GrassTweet from @#{tweet.user.username} sent to #{count} representatives.')
+   meta(name='twitter:creator', content='#{tweet.user.username}')
 
          
 

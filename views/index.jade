@@ -11,15 +11,21 @@ html
       //- For Facebook
       if (locals.fbimage)
          meta(property='og:image', content='#{fbimage}')
+         meta(name='twitter:image', content='#{fbimage}')
       else
          meta(property='og:image', content='http://i.imgur.com/iFVvwq6.png')
+         meta(property='twitter:image', content='http://i.imgur.com/iFVvwq6.png')
       meta(property='og:title', content='#{title}')
       meta(property='og:url', content='#{url}' )
       meta(property='og:site_name', content='GrassTweets.com')
       meta(property='og:type', content='activism')
       //- Need to add TwitterCard Metas
+      meta(name='twitter:card', content='summary')
+      meta(name='twitter:title', content='#{title}')
+      meta(name='twitter:site', content='GrssTwts')
       block metas
-         meta(name='description', content='GrassTweets.com keeps you in touch with your representatives through the magic of Twitter!')
+         meta(name='twitter:description', content='GrassTweets.com keeps you in touch with your representatives through the magic of Twitter! Create a message and send it to all of your reps individually!')
+         meta(name='description', content='GrassTweets.com keeps you in touch with your representatives through the magic of Twitter! Create a message and send it to all of your reps individually!')
    body
       div.navbar.navbar-fixed-top
          div.navbar-inner
