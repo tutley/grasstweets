@@ -35,9 +35,12 @@ app.locals.moment = moment;
 app.configure(function(){
    app.set('views', __dirname + '/views');
    app.set('view engine', 'jade');
+   // Middleware to highlight the current top level path
    app.use(function(req, res, next) {
      var current = req.path.split('/');
      res.locals.current = '/' + current[1];
+     res.locals.url = 'http://' + req.get('host') + req.url;
+     console.log(res.locals.url);
      next();
    });
    app.use(express.bodyParser());
