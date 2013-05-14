@@ -23,7 +23,7 @@ block afterNav
          | Are we missing someone? 
          a(href='/reps/add') Suggest an Addition
    div.row-fluid
-      if (reps)
+      if (reps.length>0)
          table.table.table-bordered.table-condensed
             thead
                tr
@@ -42,7 +42,7 @@ block afterNav
                      td: a(href='/reps/fix/#{rep._id}')
                         i.icon-pencil
       else
-         p There are no representatives on GrassTweets for this state. Consider 
+         p There are no representatives on GrassTweets for #{currState}. Consider 
             a(href='/reps/add') adding one!
 block modals
 

@@ -45,7 +45,7 @@ block afterNav
                      td: a(href='/profile/#{rep.addedBy.username}')= rep.addedBy.username
                      td= moment(rep.added).fromNow()
       else
-         p There are no suggested representatives on GrassTweets for this state. Consider 
+         p There are no suggested representatives on GrassTweets for #{currState}. Consider 
             a(href='/reps/add') adding one!
 
 block modals
