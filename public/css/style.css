@@ -30,3 +30,7 @@ div.thumbnail.repDiv.Other.well {
    padding: 3px;
 }
 
+div.navbar .brand {
+   padding: 0;
+   margin: 0 15px 0 5px;
+}
