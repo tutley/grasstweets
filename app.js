@@ -40,7 +40,6 @@ app.configure(function(){
      var current = req.path.split('/');
      res.locals.current = '/' + current[1];
      res.locals.url = 'http://' + req.get('host') + req.url;
-     console.log(res.locals.url);
      next();
    });
    app.use(express.bodyParser());
