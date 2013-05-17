@@ -14,7 +14,7 @@ block afterNav
 
    h3 @#{profile.username} on GrassTweets
    div.row-fluid
-      div.span1
+      div.span2
          - var photo = profile.photo || ''
          - photo = photo.replace(/\_normal/, '');
          img(src='#{photo}')
@@ -25,7 +25,7 @@ block afterNav
          p
             b State
             | &nbsp;- #{profile.state}
-      div.span5
+      div.span4
    div.row-fluid
       h5 Tweets:
       each tweet, i in profile.tweets

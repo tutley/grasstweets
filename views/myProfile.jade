@@ -13,7 +13,7 @@ block metas
 block afterNav
    h3 @#{user.username} on GrassTweets
    div.row-fluid
-      div.span1
+      div.span2
          - var photo = user.photo || ''
          - photo = photo.replace(/\_normal/, '');
 
@@ -28,7 +28,7 @@ block afterNav
          p
             b State
             | &nbsp;- #{user.state}
-      div.span5
+      div.span4
    div.row-fluid
       h5 Tweets:
       each tweet, i in tweets
