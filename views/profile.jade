@@ -16,14 +16,12 @@ block afterNav
    div.row-fluid
       div.span1
          - var photo = profile.photo || ''
+         - photo = photo.replace(/\_normal/, '');
          img(src='#{photo}')
       div.span6.well
          p
             b Name
             | &nbsp;- #{profile.name}
-         p
-            b Twitter Id
-            | &nbsp;- #{profile.tid}
          p
             b State
             | &nbsp;- #{profile.state}

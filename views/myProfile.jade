@@ -15,6 +15,8 @@ block afterNav
    div.row-fluid
       div.span1
          - var photo = user.photo || ''
+         - photo = photo.replace(/\_normal/, '');
+
          img(src='#{photo}')
       div.span6.well
          p
