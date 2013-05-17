@@ -6,6 +6,7 @@ var home = require('./routes/home');
 var profile = require('./routes/profile');
 var tweet = require('./routes/tweet');
 var reps = require('./routes/reps');
+var admin = require('./routes/admin');
 
 /**
  * function restrict(req, res, next) {
@@ -17,6 +18,20 @@ function restrict(req, res, next) {
     next();
   } else {
     res.redirect('/login');
+  }
+}
+
+/**
+ * function isAdmin(req, res, next)
+ * This function checks to see if the user is an admin of the site
+ * If not, redirects them away
+ * 
+ */
+function isAdmin(req, res, next) {
+  if (req.user._id == '51841f9a7944bd2314000001' || req.user._id == '5184263dfec24e11b8000001') {
+    next();
+  } else {
+    res.redirect('/');
   }
 }
 
@@ -61,6 +76,18 @@ module.exports = function(app){
    app.post('/reps/fix', restrict, reps.fix);
 
    app.get('/reps/:uname', reps.one); //- uname being the twitter username of a representative
+
+   /**
+    * Administrative Routes
+    */
+   app.get('/admin', isAdmin, admin.admin);
+   app.get('/admin/addRep', isAdmin, admin.showReps);
+   app.get('/admin/addRep/:id?', isAdmin, admin.addRep);
+   app.post('/admin/addRep', isAdmin, admin.postRep);
+   app.get('/admin/editReps', isAdmin, admin.editReps);
+   app.get('/admin/editRep/:id', isAdmin, admin.editRep);
+   app.post('/admin/editRep', isAdmin, admin.postEdit);
+   // might need to do some user banning and such too
 
    /**
     * Passport Twitter auth routes

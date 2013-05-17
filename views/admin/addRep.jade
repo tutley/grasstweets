@@ -1,0 +1,45 @@
+extends ../index
+
+block metas
+   //- meta(name='description', content='This is an example description!')
+
+block afterNav
+   h3 Add Rep
+   div.row-fluid
+      form.form-horizontal(action='/admin/addRep', method='POST', autocomplete='off')
+         input(type='hidden', name='addedBy', value='#{rep.addedBy}')
+         div.control-group
+            label.control-label(for='name') Name
+            div.controls
+               input(type='text', name='name', value='#{rep.name}')
+         div.control-group
+            label.control-label(for='twitterName') Twitter Name
+            div.controls
+               input(type='text', name='twitterName', value='#{rep.twitterName}')
+         div.control-group
+            label.control-label(for='photo') Photo
+            div.controls
+               input(type='text', name='photo', value='#{rep.photo}')
+         div.control-group
+            label.control-label(for='state') State
+            div.controls
+               input(type='text', name='state', value='#{rep.state}')
+         div.control-group
+            label.control-label(for='body') Body
+            div.controls
+               input(type='text', name='body', value='#{rep.body}')
+         div.control-group
+            label.control-label(for='party') Party
+            div.controls
+               input(type='text', name='party', value='#{rep.party}')
+
+
+         div.form-actions
+            button.btn.btn-primary(type='submit') Add Rep
+            | &nbsp;&nbsp;
+            a.btn(href='/admin/addRep') Cancel
+
+
+block modals
+
+block pageScripts

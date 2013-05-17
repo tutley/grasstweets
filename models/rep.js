@@ -10,6 +10,7 @@ var ObjectId = Schema.ObjectId;
 var Correction = new Schema({
    field: String,
    value: String,
+   closed: Boolean,
    submitted: { type: Date, default: Date.now },
    by: { type: ObjectId, ref: 'User' }
 });

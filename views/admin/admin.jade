@@ -1,0 +1,17 @@
+extends ../index
+
+block metas
+   //- meta(name='description', content='This is an example description!')
+
+block afterNav
+   h3 Admin Functions
+   div.row-fluid
+      ul
+         li
+            a(href='/admin/addRep') Show pending Reps
+         li
+            a(href='/admin/editReps') Show pending Edits
+
+block modals
+
+block pageScripts

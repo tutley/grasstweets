@@ -1,0 +1,33 @@
+extends ../index
+
+block metas
+   //- meta(name='description', content='This is an example description!')
+
+block afterNav
+   h3 Suggested Additions
+   div.row-fluid
+      if (reps.length > 0)
+         //- TODO: need to add logic for denied and confirmed and ability to hide those
+         table.table.table-bordered.table-condensed
+            thead
+               tr
+                  th Name
+                  th Twitter Name
+                  th Party
+                  th Body
+                  th Added By
+                  th Suggested
+            tbody
+               each rep in reps
+                  tr
+                     td
+                        a(href='/admin/addRep/#{rep._id}')= rep.name
+                     td= rep.twitterName
+                     td= rep.party
+                     td= rep.body
+                     td: a(href='/profile/#{rep.addedBy.username}')= rep.addedBy.username
+                     td= moment(rep.added).fromNow()
+
+block modals
+
+block pageScripts
