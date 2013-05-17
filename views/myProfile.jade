@@ -17,7 +17,8 @@ block afterNav
          - var photo = user.photo || ''
          - photo = photo.replace(/\_normal/, '');
 
-         img(src='#{photo}')
+         a(href='http://twitter.com/#{user.username}', target='_new')
+            img(src='#{photo}', border='0')
       div.span6.well
          p
             b Name
