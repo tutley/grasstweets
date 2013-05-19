@@ -23,12 +23,12 @@ function sendTweet(tReps, msg, callback) {
          message: msg,
          reps: tReps
       }
-   }).done(function(data){ 
-      callback(true, data.tweetURL); 
+   }).done(function(data){
+      callback(true, data.tweetURL);
    }).fail(function(data) {
       var response = JSON.parse(data.responseText);
       callback(false, response);
-   });   
+   });
 }
 
 /**
@@ -118,13 +118,14 @@ $(document).ready(function(){
    });
 
    $('.repDiv').css( 'cursor', 'pointer' );
-   
+
    // watch each repDiv for clicks
    $('.repDiv').click(function(){
       var div = $(this);
       div.toggleClass('well');
 
       // also change the chars available based on the length of the rep twittername
+      maxChars = calculateChars(startingMax);
    });
 
    // watch the category selectors for clicks
@@ -155,7 +156,7 @@ $(document).ready(function(){
                $('#message').val($('#message').val().replace(input, output));
             });
          };
-      while (match = exp.exec(message)) {
+      while (match == exp.exec(message)) {
          decode(match[1]);
       }
    });
@@ -179,10 +180,10 @@ $(document).ready(function(){
    // watch for the confirmed button (to send the tweet)
    $('#confirmed').click(function(){
       var message = $('#message').val();
-      var progressBar = '<div class="span1">&nbsp;</div>'
-         + '<div class="progress progress-striped active span6">'
-         + '<div class="bar" style="width: 50%;"></div>'
-         + '</div>';
+      var progressBar = '<div class="span1">&nbsp;</div>';
+      progressBar += '<div class="progress progress-striped active span6">';
+      progressBar += '<div class="bar" style="width: 50%;"></div>';
+      progressBar += '</div>';
 
 
          /*
@@ -212,17 +213,17 @@ Of course this means I'll have to re-do the server side as well
 
       $('#tweetForm').html(progressBar);
       $('#confirmModal').modal('hide');
-      
+
       sendTweet(tReps, message, function(itWorked, result) {
          if (itWorked) {
-            var yay = '<div><h2>Bingo!</h2><p>Looks like your tweet has been sent. How exciting!</p>'
-               + '<p>Now go and check out the <a href="' + result
-               + '">tweet summary</a>!</p></div>'
+            var yay = '<div><h2>Bingo!</h2><p>Looks like your tweet has been sent. How exciting!</p>';
+            yay += '<p>Now go and check out the <a href="' + result;
+            yay += '">tweet summary</a>!</p></div>';
             $('#tweetForm').html(yay);
          } else {
-            var ohNo = '<div><h2>Oh No!</h2><p>Looks like something has gone terribly wrong.</p>'
-               + '<p>Here is the response we got back from the server:</p>'
-               + '<pre>' + result.error.message + '</pre></div>';
+            var ohNo = '<div><h2>Oh No!</h2><p>Looks like something has gone terribly wrong.</p>';
+            ohNo += '<p>Here is the response we got back from the server:</p>';
+            ohNo += '<pre>' + result.error.message + '</pre></div>';
             $('#tweetForm').html(ohNo);
          }
       });

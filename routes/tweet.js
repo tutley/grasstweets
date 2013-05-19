@@ -9,11 +9,10 @@ var User = require('../models/user');
 var Tweet = require('../models/tweet');
 var Rep = require('../models/rep');
 
-
 /**
  * This function will do the heavy lifting of sending the tweets, and capturing
  * some information about the tweets as they are sent
- * 
+ *
  * function sendATweet(user, message, reps, callback) {
  * @param  {object}   user     The user who is sending the tweets
  * @param  {Object}   tweet    The tweet object
@@ -25,29 +24,29 @@ function sendATweet(user, tweet, reps) {
    var fullMessage = '';
    // Setup the Twitter API interface
    var T = new Twit({
-      consumer_key: config.twitter.consumerKey
-      , consumer_secret: config.twitter.consumerSecret
-      , access_token: user.accessToken
-      , access_token_secret: user.accessTokenSecret
+      consumer_key: config.twitter.consumerKey,
+      consumer_secret: config.twitter.consumerSecret,
+      access_token: user.accessToken,
+      access_token_secret: user.accessTokenSecret
    });
 
    var lastTweet = reps.length -1;
    // iterate through each rep, send the tweet, and add the repID
    reps.forEach(function(rep, i) {
-      fullMessage = '.' + rep.twitterName + ' ' + tweet.message;     
-      T.post('statuses/update', 
-      { status: fullMessage, trim_user: true }, 
+      fullMessage = '.@' + rep.twitterName + ' ' + tweet.message;
+      T.post('statuses/update',
+      { status: fullMessage, trim_user: true },
       function(err, reply) {
          if (err) {
             error = err;
-            tweet.reps.push({ 
+            tweet.reps.push({
                'id' : rep._id,
                'tweetId' : 'ERROR'
             });
             tweet.save();
          }
          // add this tweet to the successful results
-         tweet.reps.push({ 
+         tweet.reps.push({
             'id' : rep._id,
             'tweetId' : reply.id_str
          });
@@ -62,9 +61,9 @@ module.exports = {
       if (req.user.state) {
          // TODO: Find a better way to do this
          var categories = [
-            { 'name':'US House', 'short':'ushouse'}, 
-            { 'name':'US Senate', 'short':'ussenate'}, 
-            { 'name':'State House', 'short':'sthouse'}, 
+            { 'name':'US House', 'short':'ushouse'},
+            { 'name':'US Senate', 'short':'ussenate'},
+            { 'name':'State House', 'short':'sthouse'},
             { 'name':'State Senate', 'short':'stsenate'}];
 
          var parties = [
@@ -117,9 +116,9 @@ module.exports = {
       tweet.state = req.user.state;
       // save the tweet in the tweet collection
       tweet.save(function(err) {
-         if (err) { 
+         if (err) {
             res.send(500, {'error':err.message});
-            next(err); 
+            next(err);
          }
          // update the user doc with this tweet
          User.update({ '_id' : req.user._id }, {$push: { 'tweets' : tweet._id }}, function(err){
@@ -136,7 +135,7 @@ module.exports = {
                // send the tweet(s)
                sendATweet(req.user, tweet, reps);
                res.send(200, {'tweetURL':'/tweet/'+tweet._id});
-            });            
+            });
          });
       });
    },

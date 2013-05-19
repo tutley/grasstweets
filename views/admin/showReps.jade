@@ -22,7 +22,7 @@ block afterNav
                   tr
                      td
                         a(href='/admin/addRep/#{rep._id}')= rep.name
-                     td= rep.twitterName
+                     td @#{rep.twitterName}
                      td= rep.party
                      td= rep.body
                      td: a(href='/profile/#{rep.addedBy.username}')= rep.addedBy.username

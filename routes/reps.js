@@ -39,12 +39,13 @@ module.exports = {
       Rep.findOne({ 'twitterName' : req.params.uname }, function(err, rep) {
          if (err) { next(err); }
          if (rep) {
-            Tweet.find({ reps: rep._id }, function(err, tweets) {
+            Tweet.find({ 'reps.id': rep._id }, function(err, tweets) {
                if (err) { next(err); }
                res.render('repProfile.jade', {
                   title: rep.name + ' - Grastweets.com',
                   user: req.user,
-                  rep: rep
+                  rep: rep,
+                  tweets: tweets
                });
             });
          } else {
