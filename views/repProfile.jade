@@ -29,7 +29,8 @@ block afterNav
       h5 Tweets @#{rep.twitterName}
       ul
          each tweet in tweets
-            a(href='/tweet/#{tweet._id}') #{tweet.created}
+            li
+               a(href='/tweet/#{tweet._id}') #{tweet.created}
    else
       h3 Not Found
       p Sorry, that Twitter username was not found in the system
