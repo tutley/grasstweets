@@ -156,7 +156,7 @@ $(document).ready(function(){
                $('#message').val($('#message').val().replace(input, output));
             });
          };
-      while (match == exp.exec(message)) {
+      while (match = exp.exec(message)) {
          decode(match[1]);
       }
    });
