@@ -6,39 +6,56 @@ block metas
 block afterNav
    h3 Add Rep
    div.row-fluid
-      form.form-horizontal(action='/admin/addRep', method='POST', autocomplete='off')
-         input(type='hidden', name='addedBy', value='#{rep.addedBy}')
-         div.control-group
-            label.control-label(for='name') Name
-            div.controls
-               input(type='text', name='name', value='#{rep.name}')
-         div.control-group
-            label.control-label(for='twitterName') Twitter Name
-            div.controls
-               input(type='text', name='twitterName', value='#{rep.twitterName}')
-         div.control-group
-            label.control-label(for='photo') Photo
-            div.controls
-               input(type='text', name='photo', value='#{rep.photo}')
-         div.control-group
-            label.control-label(for='state') State
-            div.controls
-               input(type='text', name='state', value='#{rep.state}')
-         div.control-group
-            label.control-label(for='body') Body
-            div.controls
-               input(type='text', name='body', value='#{rep.body}')
-         div.control-group
-            label.control-label(for='party') Party
-            div.controls
-               input(type='text', name='party', value='#{rep.party}')
+      if rep.status=='new'
+         form.form-horizontal(action='/admin/addRep', method='POST', autocomplete='off')
+            input(type='hidden', name='addedBy', value='#{rep.addedBy}')
+            div.control-group
+               label.control-label(for='name') Name
+               div.controls
+                  input(type='text', name='name', value='#{rep.name}')
+            div.control-group
+               label.control-label(for='twitterName') Twitter Name
+               div.controls
+                  input(type='text', name='twitterName', value='#{rep.twitterName}')
+            div.control-group
+               label.control-label(for='photo') Photo
+               div.controls
+                  input(type='text', name='photo', value='#{rep.photo}')
+            div.control-group
+               label.control-label(for='state') State
+               div.controls
+                  select(name='state')
+                     each state in states
+                        option(value='#{state.abbr}', selected=state.abbr===rep.state)= state.name
+            div.control-group
+               label.control-label(for='body') Body
+               div.controls
+                  select(name='body')
+                     option(value='State House', selected=rep.body==='State House') State House
+                     option(value='State Senate', selected=rep.body==='State Senate') State Senate
+                     option(value='US House', selected=rep.body==='US House') US House
+                     option(value='US Senate', selected=rep.body==='US Senate') US Senate
+            div.control-group
+               label.control-label(for='party') Party
+               div.controls
+                  select(name='party')
+                     option(value='Republican', selected=rep.party==='Republican') Republican
+                     option(value='Democrat', selected=rep.party==='Democrat') Democrat
+                     option(value='Other', selected=rep.party==='Other') Other
 
 
-         div.form-actions
-            button.btn.btn-primary(type='submit') Add Rep
-            | &nbsp;&nbsp;
-            a.btn(href='/admin/addRep') Cancel
+            div.form-actions
+               button.btn.btn-primary(type='submit') Add Rep
+               | &nbsp;&nbsp;
+               a.btn(href='/admin/addRep') Cancel
 
+         form.form-horizontal(action='/admin/denyRep', method='POST', autocomplete='off')
+            input(type='hidden', name='twitterName', value='#{rep.twitterName}')
+            div.form-actions
+               button.btn.btn-danger(type='submit') Deny Rep
+
+      else
+         h3 REP ALREADY CONFIRMED OR DENIED
 
 block modals
 

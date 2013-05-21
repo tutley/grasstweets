@@ -59,8 +59,8 @@ function getShort(url, callback) {
 
 function calculateChars(initial) {
    var longest = 0;
-   $("div.repDiv.well").each(function(){
-      var unameLength = $(this).find('.repTwit').val().length;
+   $("button.repBtn.active").each(function(){
+      var unameLength = parseInt($(this).attr('data-nameLength'), 10);
       if (longest < unameLength) {
          longest = unameLength;
       }
@@ -74,7 +74,7 @@ function calculateChars(initial) {
 
 // when page loads, do this
 $(document).ready(function(){
-   var startingMax = parseInt($('#charsCounter').text());
+   var startingMax = parseInt($('#charsCounter').text(), 10);
    var maxChars = calculateChars(startingMax);
 
    // watch the category checkboxes for clicks
@@ -84,15 +84,15 @@ $(document).ready(function(){
       if ($(this).is(':checked')) {
          // show the category and select each representative by default
          $('#'+thisCat).show();
-         $('#'+thisCat).find('.repDiv').each(function(){
-            $(this).addClass('well');
+         $('#'+thisCat).find('.repBtn').each(function(){
+            $(this).addClass('active');
          });
          maxChars = calculateChars(startingMax);
       } else {
          // hide the category and deselect all representatives
          $('#'+thisCat).hide();
-         $('#'+thisCat).find('.repDiv').each(function(){
-            $(this).removeClass('well');
+         $('#'+thisCat).find('.repBtn').each(function(){
+            $(this).removeClass('active');
          });
          maxChars = calculateChars(startingMax);
       }
@@ -104,25 +104,25 @@ $(document).ready(function(){
       var thisParty = $(this).val();
       if ($(this).is(':checked')) {
          // select all unselected members of that party in categories that are shown
-         $('ul.thumbnails:visible').find('.'+thisParty).each(function(){
-            $(this).addClass('well');
+         $('div.repCategory:visible').find('.'+thisParty).each(function(){
+            $(this).addClass('active');
          });
          maxChars = calculateChars(startingMax);
       } else {
          // deselect all members of that party
          $('.'+thisParty).each(function(){
-            $(this).removeClass('well');
+            $(this).removeClass('active');
          });
          maxChars = calculateChars(startingMax);
       }
    });
 
-   $('.repDiv').css( 'cursor', 'pointer' );
+   //$('.repBtn').css( 'cursor', 'pointer' );
 
-   // watch each repDiv for clicks
-   $('.repDiv').click(function(){
-      var div = $(this);
-      div.toggleClass('well');
+   // watch each repBtn for clicks
+   $('.repBtn').click(function(){
+      var btn = $(this);
+      btn.button('toggle');
 
       // also change the chars available based on the length of the rep twittername
       maxChars = calculateChars(startingMax);
@@ -167,9 +167,9 @@ $(document).ready(function(){
       if ($('#message').val().length > 0) {
          tReps.length=0;
          var count = 0;
-         $("div.repDiv.well").each(function(){
+         $("button.repBtn.active").each(function(){
             count++;
-            tReps.push($(this).find('.repId').val());
+            tReps.push($(this).attr('data-repId'));
          });
          var confMessage = 'You are about to send <strong>' + count + '</strong> tweets, one to each representative you have selected.';
          $('#modalMessage').html(confMessage);

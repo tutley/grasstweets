@@ -1,23 +1,8 @@
 extends index
-//- better have that first line or none of this will work!
-
-   ***************************************************************************
-   I have set this layout up so that you never need to do a "block appends"
-   But, you do need to include each block, even if it is empty, so that you
-   don't load unecessary code from index (although it won't break anything)
-   ***************************************************************************
 
 block metas
    //- meta(name='description', content='This is an example description!')
-      Here you can dynamically control the meta tags for each page
-      This is especially useful for social networking sites like facebook that grab information
-      from these meta tags to determine how links to your site appear on their site
-
-      Keep in mind that index is providing these for each page already:
-      meta(name='viewport', content='width=device-width, initial-scale=1.0')
-      meta(name='title', content='#{title}')
          
-
 block afterNav
    //- This is where the page content goes
       Please remember that everything here is inside of a container-fluid
@@ -26,7 +11,12 @@ block afterNav
       h3= rep.name
          |&nbsp;
          small #{rep.party} - #{rep.state} #{rep.body}
-      h5 Tweets @#{rep.twitterName}
+      div.pull-right
+         if rep.addedBy
+            span Added By: 
+               a(href='/profile/#{rep.addedBy.username}')= rep.addedBy.name
+      div
+         h5 GrassTweets @#{rep.twitterName}
       ul
          each tweet in tweets
             li

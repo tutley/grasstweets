@@ -2,7 +2,7 @@
 
 // body can be "US House", "US Senate", "State House" or "State Senate"
 // party can be "Republican", "Democrat", or "Other"
-
+// status can be: 'confirmed', 'denied', or 'new'
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
@@ -18,8 +18,7 @@ var AddrepSchema = new Schema({
       type: ObjectId,
       ref: 'User'
    },
-   confirmed: Boolean,
-   denied: Boolean,
+   status: { type: String, default: 'new' },
    added: {type: Date, default: Date.now},
    modded: Date
 }, {

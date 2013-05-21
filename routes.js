@@ -84,6 +84,7 @@ module.exports = function(app){
    app.get('/admin/addRep', isAdmin, admin.showReps);
    app.get('/admin/addRep/:id?', isAdmin, admin.addRep);
    app.post('/admin/addRep', isAdmin, admin.postRep);
+   app.post('/admin/denyRep', isAdmin, admin.denyRep);
    app.get('/admin/editReps', isAdmin, admin.editReps);
    app.get('/admin/editRep/:id', isAdmin, admin.editRep);
    app.post('/admin/editRep', isAdmin, admin.postEdit);

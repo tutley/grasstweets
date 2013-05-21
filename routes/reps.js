@@ -36,7 +36,9 @@ module.exports = {
 
    //app.get('/reps/:uname', reps.one); //- uname being the twitter username of a representative
    one: function(req, res, next) {
-      Rep.findOne({ 'twitterName' : req.params.uname }, function(err, rep) {
+      Rep.findOne({ 'twitterName' : req.params.uname })
+      .populate('addedBy')
+      .exec(function(err, rep) {
          if (err) { next(err); }
          if (rep) {
             Tweet.find({ 'reps.id': rep._id }, function(err, tweets) {

@@ -26,14 +26,15 @@ block afterNav
             dt Sent
             dd= tweet.created
             dt Recipients
-            each rep in tweet.reps
-               dd 
+            dd
+               each rep in tweet.reps
                   if (rep.tweetId == 'ERROR')
-                     | Error tweeting to #{rep.id.twitterName}
+                     | Error tweeting to #{rep.id.twitterName}&nbsp;
                   else
-                     a(
+                     a.btn.btn-primary(
                         href='http://twitter.com/#{tweet.user.username}/status/#{rep.tweetId}'
                         target='_new') @#{rep.id.twitterName}
+                     |&nbsp;
       div.span3.
          <a href="https://twitter.com/share" class="twitter-share-button" data-via="GrssTwts" data-size="large" data-related="GrssTwts">Tweet</a>
          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>

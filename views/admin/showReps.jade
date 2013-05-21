@@ -6,6 +6,12 @@ block metas
 block afterNav
    h3 Suggested Additions
    div.row-fluid
+      div.btn-group(data-toggle='buttons-checkbox')
+         button.filters.btn.active(type='button', id='new') New
+         button.filters.btn(type='button', id='confirmed') Confirmed
+         button.filters.btn(type='button', id='denied') Denied
+
+   div.row-fluid
       if (reps.length > 0)
          //- TODO: need to add logic for denied and confirmed and ability to hide those
          table.table.table-bordered.table-condensed
@@ -17,9 +23,13 @@ block afterNav
                   th Body
                   th Added By
                   th Suggested
+                  th Last Action
             tbody
                each rep in reps
-                  tr
+                  - var klass = rep.status
+                  if (rep.status == 'confirmed' || rep.status == 'denied')
+                     - klass += ' hide';
+                  tr(class='#{klass}')
                      td
                         a(href='/admin/addRep/#{rep._id}')= rep.name
                      td @#{rep.twitterName}
@@ -27,7 +37,20 @@ block afterNav
                      td= rep.body
                      td: a(href='/profile/#{rep.addedBy.username}')= rep.addedBy.username
                      td= moment(rep.added).fromNow()
-
+                     if rep.status == 'new'
+                        td New
+                     else
+                        td= moment(rep.modded).fromNow()
 block modals
 
 block pageScripts
+   script.
+      $(document).ready(function(){
+         // Any time a filter button is clicked, filters should be applied
+         $('.filters').click(function(){
+            var rType = $(this).attr('id');
+            $(this).button('toggle');
+            $(this).toggleClass('active');
+            $('.'+rType).toggle();
+         });
+      });

@@ -105,7 +105,6 @@ module.exports = {
 
    // app.post('/tweet'...)
    send: function(req, res, next) {
-      delete req.session.tweet;
       var data = req.body;
 //      console.log(data);
 

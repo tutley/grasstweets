@@ -3,6 +3,7 @@ var User = require('../models/user');
 var Tweet = require('../models/tweet');
 var Rep = require('../models/rep');
 var Addrep = require('../models/addrep');
+var states = require('../states.js');
 
 module.exports = {
    // app.get('/admin', isAdmin, admin.admin);
@@ -34,7 +35,8 @@ module.exports = {
          res.render('admin/addRep.jade', {
             title: 'Admin: Add Rep ' + rep.twitterName + '?',
             user: req.user,
-            rep: rep
+            rep: rep,
+            states: states
          });
       });
    },
@@ -45,8 +47,24 @@ module.exports = {
       var newRep = new Rep(data);
       newRep.save(function(err) {
          if(err) {next(err);}
+         var thisDate = Date.now();
          Addrep.update({ 'twitterName' : newRep.twitterName },
-            {$set : {'confirmed':true, 'modded': Date.now }}).exec();
+         {$set : {'status': 'confirmed', 'modded': thisDate }},
+         function (err) {
+            if (err) {next(err);}
+            res.redirect('/admin/addRep');
+         });
+      });
+   },
+
+   // app.post('/admin/denyRep', isAdmin, admin.denyRep);
+   denyRep: function(req, res, next) {
+      var data = req.body;
+      var thisDate = Date.now();
+      Addrep.update({ 'twitterName' : data.twitterName},
+      { $set : { 'status' : 'denied' , 'modded' : thisDate }},
+      function(err) {
+         if (err) {next(err);}
          res.redirect('/admin/addRep');
       });
    },
