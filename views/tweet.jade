@@ -31,7 +31,7 @@ block afterNav
                   if (rep.tweetId == 'ERROR')
                      | Error tweeting to #{rep.id.twitterName}&nbsp;
                   else
-                     a.btn.btn-primary(
+                     a.btn.btn-primary.btn-repLink(
                         href='http://twitter.com/#{tweet.user.username}/status/#{rep.tweetId}'
                         target='_new') @#{rep.id.twitterName}
                      |&nbsp;
