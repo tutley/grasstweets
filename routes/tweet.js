@@ -9,6 +9,20 @@ var User = require('../models/user');
 var Tweet = require('../models/tweet');
 var Rep = require('../models/rep');
 
+
+/**
+ * This function is for testing purposes only
+ */
+function fakeTwit (method, options, callback) {
+   var x = 1000;
+   // wait x milliseconds, then return a fake result
+   setTimeout(function() {
+      console.log(options.status);
+      callback(null, {'id_str':'TESTING'});
+   }, x);
+}
+
+
 /**
  * This function will do the heavy lifting of sending the tweets, and capturing
  * some information about the tweets as they are sent
@@ -18,7 +32,7 @@ var Rep = require('../models/rep');
  * @param  {Object}   tweet    The tweet object
  * @param  {array}    reps     Array of Representatives (objects) to tweet
  */
-function sendATweet(user, tweet, reps) {
+function sendATweet (user, tweet, reps, callback) {
 
    var error = null;
    var fullMessage = '';
@@ -35,22 +49,29 @@ function sendATweet(user, tweet, reps) {
    reps.forEach(function(rep, i) {
       fullMessage = '.@' + rep.twitterName + ' ' + tweet.message;
       T.post('statuses/update',
+      // fakeTwit('statuses/update',
       { status: fullMessage, trim_user: true },
       function(err, reply) {
          if (err) {
             error = err;
             tweet.reps.push({
                'id' : rep._id,
-               'tweetId' : 'ERROR'
+               'tweetId' : 'ERROR',
+               'error' : err.message
             });
-            tweet.save();
+         } else {
+            // add this tweet to the successful results
+            tweet.reps.push({
+               'id' : rep._id,
+               'tweetId' : reply.id_str
+            });
          }
-         // add this tweet to the successful results
-         tweet.reps.push({
-            'id' : rep._id,
-            'tweetId' : reply.id_str
-         });
-         tweet.save();
+         if (i==(reps.length-1)) {
+            tweet.save(function(err) {
+               if (err) { callback(err, null); }
+               callback(null, tweet._id);
+            });
+         }
       });
    });
 }
@@ -132,8 +153,10 @@ module.exports = {
                      next(err);
                   }
                // send the tweet(s)
-               sendATweet(req.user, tweet, reps);
-               res.send(200, {'tweetURL':'/tweet/'+tweet._id});
+               sendATweet(req.user, tweet, reps, function(err, tid){
+                  if (err) { next(err); }
+                  res.send(200, {'tweetURL':'/tweet/'+tid});
+               });
             });
          });
       });

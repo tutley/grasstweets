@@ -9,9 +9,10 @@ var TweetSchema = new Schema({
    reps: [{
       id : {
          type: ObjectId,
-         ref: 'Rep'         
+         ref: 'Rep'
       },
-      tweetId: String
+      tweetId: String,
+      error: String
    }],
    user: {
       type: ObjectId,
