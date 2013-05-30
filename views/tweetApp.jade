@@ -38,26 +38,17 @@ block afterNav
                   li Tweets are directed to the representatives using ".@TwitterName" so they are visible to your followers and those of the Representative.
 
       div.row-fluid
-         h4 Who do you want to tweet?
-      div.row-fluid
-         div.btn-group(data-toggle='buttons-checkbox')
-            each category in categories
-               a.categories.btn.btn-primary(href='##{category.short}')= category.name
-      div.row-fluid
-         small Clicking one of these options will show all members of the selected legislative body, and will select them as recipients.
+         div.span8
+            h4 Who do you want to tweet?
+            div.btn-group(data-toggle='buttons-checkbox')
+               each category in categories
+                  a.categories.btn.btn-primary(href='##{category.short}')= category.name
+         div.span4
+            h4 Toggle Party:
+            div.btn-group(data-toggle='buttons-checkbox')
+               each party in parties
+                  a.parties.btn.active(href='##{party.name}')= party.name
 
-      //-div.row-fluid
-         div.span1
-            label.checkbox.inline
-               strong Party
-         div.span2
-            each party in parties
-               label.checkbox.inline
-                  input.parties(
-                     type='checkbox'
-                     checked
-                     value='#{party.name}')
-                  | #{party.short}
       div.row-fluid.chkBoxDiv
          each category in categories
             div.row-fluid.repCategory.hide(id='#{category.short}')

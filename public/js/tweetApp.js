@@ -89,22 +89,20 @@ $(document).ready(function(){
          $(thisCat).find('.repBtn').each(function(){
             $(this).addClass('active');
          });
-         maxChars = calculateChars(startingMax);
       } else {
          // hide the category and deselect all representatives
          $(thisCat).hide();
          $(thisCat).find('.repBtn').each(function(){
             $(this).removeClass('active');
          });
-         maxChars = calculateChars(startingMax);
       }
-
+      maxChars = calculateChars(startingMax);
    });
 
    // watch the party checkboxes for clicks
    $('.parties').click(function(){
-      var thisParty = $(this).val();
-      if ($(this).is(':checked')) {
+      var thisParty = $(this).attr('href').replace(/#/, '');
+      if (!$(this).hasClass('active')) {
          // select all unselected members of that party in categories that are shown
          $('div.repCategory:visible').find('.'+thisParty).each(function(){
             $(this).addClass('active');
