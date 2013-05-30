@@ -7,7 +7,6 @@ var constants = {};
 constants.categories = [
    { 'name':'US House', 'short':'ushouse'},
    { 'name':'US Senate', 'short':'ussenate'},
-   { 'name':'US Executive', 'short':'usexec'},
    { 'name':'State House', 'short':'sthouse'},
    { 'name':'State Senate', 'short':'stsenate'},
    { 'name':'State Executive', 'short':'stexec'}];
