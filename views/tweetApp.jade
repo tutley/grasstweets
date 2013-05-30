@@ -5,54 +5,15 @@ block metas
 
 block afterNav
    div.row-fluid
-      h2 Send a Tweet!
+      h3 Send a Tweet!
+   - var maxChars = 137
+   - var longestName = 0
    form(id='tweetForm')
-      div.row-fluid
-         h4 Step 1 - Select the Legislative Body
-         - var maxChars = 137
-         - var longestName = 0
-         div.row-fluid
-            div.span1
-               label.checkbox.inline
-                  strong Body
-            div.span6
-               each category in categories
-                  label.checkbox.inline
-                     input.categories(
-                        type='checkbox'
-                        value='#{category.short}')
-                     | #{category.name}
-            div.span1
-               label.checkbox.inline
-                  strong Party
-            div.span2
-               each party in parties
-                  label.checkbox.inline
-                     input.parties(
-                        type='checkbox'
-                        checked
-                        value='#{party.name}')
-                     | #{party.short}
-         div.row-fluid.chkBoxDiv
-            h4 Step 2 - Select the Recipients&nbsp;
-               small (selected by default)
-            each category in categories
-               div.row-fluid.repCategory.hide(id='#{category.short}')
-                  h5= category.name
-                  each rep in reps
-                     if rep.body == category.name
-                        button(
-                           type='button'
-                           data-nameLength='#{rep.twitterName.length}'
-                           data-repId='#{rep._id}'
-                           class='btn btn-small repBtn #{rep.party}') #{rep.name} 
-
-
-      div.row-fluid
-         h4 Step 3 - Compose your message
       div.row-fluid
          - var charsAvailable = maxChars
          div.span7.well
+            strong Representatives Selected: 
+               span(id='repsCounter') 0
             textarea.input-block-level(
                autofocus
                name='message'
@@ -62,13 +23,54 @@ block afterNav
             span.pull-right
                span Chars left:&nbsp;
                span(id='charsCounter') #{charsAvailable}
-         div.clearfix
+            div.row-fluid
+               div.pull-right
+                  a.btn(href='/tweet') Cancel
+                  |&nbsp;
+                  a.btn.btn-primary(href='#', id='tweetBtn') Tweet!
          div.span5
-            h4 Step 4 - Send it!
-         div.span3
-            a.btn(href='/tweet') Cancel
-            |&nbsp;
-            a.btn.btn-primary(href='#', id='tweetBtn') Tweet!
+            span.label Tips:
+            small
+               ul
+                  li The "Chars Left" field takes into account the longest twitter username of those selected.
+                  li You can select more than one legislative body.
+                  li Go ahead and paste a really long URL. You can shorten it, or if it is too long, we'll shorten it automagically.
+                  li Tweets are directed to the representatives using ".@TwitterName" so they are visible to your followers and those of the Representative.
+
+   div.row-fluid
+      h4 Who do you want to tweet?
+   div.row-fluid
+      div.span7.text-center
+         div.btn-group(data-toggle='buttons-checkbox')
+            each category in categories
+               button.categories.btn.btn-primary(value='#{category.short}')= category.name
+      div.span5
+         small *Note: Clicking one of these options will show all members of the selected legislative body, and will select them as recipients.
+
+   //-div.row-fluid
+      div.span1
+         label.checkbox.inline
+            strong Party
+      div.span2
+         each party in parties
+            label.checkbox.inline
+               input.parties(
+                  type='checkbox'
+                  checked
+                  value='#{party.name}')
+               | #{party.short}
+   div.row-fluid.chkBoxDiv
+      each category in categories
+         div.row-fluid.repCategory.hide(id='#{category.short}')
+            h5= category.name
+            each rep in reps
+               if rep.body == category.name
+                  button(
+                     type='button'
+                     data-nameLength='#{rep.twitterName.length}'
+                     data-repId='#{rep._id}'
+                     class='btn btn-mini repBtn #{rep.party}') #{rep.name} 
+
 
    div.row-fluid
 

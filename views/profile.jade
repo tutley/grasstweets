@@ -22,19 +22,31 @@ block afterNav
 
       div.span6.well
          p
-            b Name
-            | &nbsp;- #{profile.name}
+            b Name:
+            | &nbsp;#{profile.name}
          p
-            b State
-            | &nbsp;- #{profile.state}
+            b Member Since:
+            | &nbsp;#{moment(profile.created).format('MMMM Do YYYY, h:mm:ss a')}
+         p
+            b State:
+            | &nbsp;#{profile.state}
       div.span4
    div.row-fluid
-      h5 Tweets:
-      each tweet, i in profile.tweets
-         dl.dl-horizontal
-            dt #{i+1}
-            dd
-               a(href='/tweet/#{tweet._id}') #{tweet.created}
+      div.span8
+         h4 Activity:
+         table.table.table-condensed.table-striped.table-bordered
+            theader
+               tr
+                  th Sent
+                  th # Reps
+                  th Message
+            tbody
+               each tweet in profile.tweets
+                  tr
+                     td
+                        a(href='/tweet/#{tweet._id}') #{moment(tweet.created).format('MMMM Do YYYY, h:mm:ss a')}
+                     td= tweet.reps.length
+                     td= tweet.message
 
 
 block modals

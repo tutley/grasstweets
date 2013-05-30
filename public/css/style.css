@@ -122,5 +122,9 @@ a.btn-repLink {
    margin-bottom: 3px;
 }
 
+form#tweetForm {
+   margin: 0 0 0 5px;
+}
+
 
 

@@ -24,7 +24,7 @@ block afterNav
             dt Message
             dd= tweet.message
             dt Sent
-            dd= tweet.created
+            dd= moment(tweet.created).format('MMMM Do YYYY, h:mm:ss a')
             dt Recipients
             dd
                each rep in tweet.reps

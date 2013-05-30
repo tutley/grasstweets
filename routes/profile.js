@@ -9,7 +9,9 @@ module.exports = {
 
    // app.get('/profile', restrict, profile.mine);
    mine: function(req, res, next) {
-      Tweet.find({'user': req.user._id}, function(err, tweets){
+      Tweet.find({'user': req.user._id})
+      .sort({'created':-1})
+      .exec(function(err, tweets){
          if (err) { next(err);}
          res.render('myProfile.jade', {
             title: 'Your GrassTweets Profile',
@@ -26,7 +28,7 @@ module.exports = {
       if (req.session.message) {
          message = req.session.message;
          delete req.session.message;
-      } 
+      }
       res.render('state.jade', {
          title: 'GrassTweets: Select your State',
          user: req.user,
@@ -54,7 +56,7 @@ module.exports = {
    // app.get('/profile/:uname', profile.display); // query based on twitter username
    display: function(req, res, next) {
       User.findOne({ 'username' : req.params.uname })
-      .populate('tweets')
+      .populate('tweets', null, null, {sort:{'created':-1}})
       .exec(function(err, profile) {
          if (err) { next(err); }
          res.render('profile.jade', {

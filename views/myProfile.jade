@@ -21,25 +21,36 @@ block afterNav
             img(src='#{photo}', border='0')
       div.span6.well
          p
-            b Name
-            | &nbsp;- #{user.name}
+            b Name:
+            | &nbsp;#{user.name}
          p
-            b Twitter Id
-            | &nbsp;- #{user.tid}
+            b Twitter Id:
+            | &nbsp;#{user.tid}
          p
-            b State
-            | &nbsp;- #{user.state}
+            b Member Since:
+            | &nbsp;#{moment(user.created).format('MMMM Do YYYY, h:mm:ss a')}
+         p
+            b State:
+            | &nbsp;#{user.state} &nbsp;-&nbsp;
+            small &nbsp;
+               a(href='/profile/state') Change Your State
       div.span4
    div.row-fluid
-      h5 Tweets:
-      each tweet, i in tweets
-         dl.dl-horizontal
-            dt #{i+1}
-            dd
-               a(href='/tweet/#{tweet._id}') #{tweet.created}
-
-   div.row-fluid
-      a(href='/profile/state') Change Your State
+      div.span8
+         h4 Activity:
+         table.table.table-condensed.table-striped.table-bordered
+            theader
+               tr
+                  th Sent
+                  th # Reps
+                  th Message
+            tbody
+               each tweet in tweets
+                  tr
+                     td
+                        a(href='/tweet/#{tweet._id}') #{moment(tweet.created).format('MMMM Do YYYY, h:mm:ss a')}
+                     td= tweet.reps.length
+                     td= tweet.message
 
 block modals
    //- this is where you can add hidden divs and other elements that you'll want to display

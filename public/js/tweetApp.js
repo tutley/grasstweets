@@ -59,7 +59,9 @@ function getShort(url, callback) {
 
 function calculateChars(initial) {
    var longest = 0;
+   var countReps = 0;
    $("button.repBtn.active").each(function(){
+      countReps++;
       var unameLength = parseInt($(this).attr('data-nameLength'), 10);
       if (longest < unameLength) {
          longest = unameLength;
@@ -68,7 +70,7 @@ function calculateChars(initial) {
    var newMax = initial-longest;
    var allowedChars = newMax - $('#message').val().length;
    $('#charsCounter').text(allowedChars);
-
+   $('#repsCounter').text(countReps);
    return newMax;
 }
 
@@ -81,7 +83,7 @@ $(document).ready(function(){
 
    $('.categories').click(function(){
       var thisCat = $(this).val();
-      if ($(this).is(':checked')) {
+      if (!$(this).hasClass('active')) {
          // show the category and select each representative by default
          $('#'+thisCat).show();
          $('#'+thisCat).find('.repBtn').each(function(){
@@ -164,7 +166,9 @@ $(document).ready(function(){
    // watch the tweetBtn
    var tReps = Array();
    $('#tweetBtn').click(function() {
-      if ($('#message').val().length > 0) {
+      var msgLen = $('#message').val().length;
+      var selReps = parseInt($('#repsCounter').text(), 10);
+      if (msgLen > 0 && selReps > 0) {
          tReps.length=0;
          var count = 0;
          $("button.repBtn.active").each(function(){
