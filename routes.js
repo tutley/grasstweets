@@ -52,6 +52,7 @@ module.exports = function(app){
    app.get('/tweet', restrict, tweet.main);
    app.post('/tweet', restrict, tweet.send);
    app.get('/tweet/status', restrict, tweet.status);
+   app.get('/tweet/test', restrict, tweet.testLimit);
 
    app.get('/tweet/:id', tweet.display); // where id is the object id of the tweet in the db
 
@@ -103,7 +104,7 @@ module.exports = function(app){
    // authentication process by attempting to obtain an access token.  If
    // access was granted, the user will be logged in.  Otherwise,
    // authentication has failed.
-   app.get('/auth/twitter/callback', 
+   app.get('/auth/twitter/callback',
      passport.authenticate('twitter', { successRedirect: '/',
                                         failureRedirect: '/loginError' }));
 

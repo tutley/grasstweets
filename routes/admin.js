@@ -3,7 +3,8 @@ var User = require('../models/user');
 var Tweet = require('../models/tweet');
 var Rep = require('../models/rep');
 var Addrep = require('../models/addrep');
-var states = require('../states.js');
+var states = require('../states');
+var constants = require('../constants');
 
 module.exports = {
    // app.get('/admin', isAdmin, admin.admin);
@@ -36,7 +37,9 @@ module.exports = {
             title: 'Admin: Add Rep ' + rep.twitterName + '?',
             user: req.user,
             rep: rep,
-            states: states
+            states: states,
+            categories: constants.categories,
+            parties: constants.parties
          });
       });
    },

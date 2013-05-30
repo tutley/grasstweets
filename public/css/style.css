@@ -126,5 +126,8 @@ form#tweetForm {
    margin: 0 0 0 5px;
 }
 
+.dl-horizontal dd {
+   margin-bottom: 5px;
+}
 
 

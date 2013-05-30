@@ -37,39 +37,38 @@ block afterNav
                   li Go ahead and paste a really long URL. You can shorten it, or if it is too long, we'll shorten it automagically.
                   li Tweets are directed to the representatives using ".@TwitterName" so they are visible to your followers and those of the Representative.
 
-   div.row-fluid
-      h4 Who do you want to tweet?
-   div.row-fluid
-      div.span7.text-center
+      div.row-fluid
+         h4 Who do you want to tweet?
+      div.row-fluid
          div.btn-group(data-toggle='buttons-checkbox')
             each category in categories
-               button.categories.btn.btn-primary(value='#{category.short}')= category.name
-      div.span5
-         small *Note: Clicking one of these options will show all members of the selected legislative body, and will select them as recipients.
+               a.categories.btn.btn-primary(href='##{category.short}')= category.name
+      div.row-fluid
+         small Clicking one of these options will show all members of the selected legislative body, and will select them as recipients.
 
-   //-div.row-fluid
-      div.span1
-         label.checkbox.inline
-            strong Party
-      div.span2
-         each party in parties
+      //-div.row-fluid
+         div.span1
             label.checkbox.inline
-               input.parties(
-                  type='checkbox'
-                  checked
-                  value='#{party.name}')
-               | #{party.short}
-   div.row-fluid.chkBoxDiv
-      each category in categories
-         div.row-fluid.repCategory.hide(id='#{category.short}')
-            h5= category.name
-            each rep in reps
-               if rep.body == category.name
-                  button(
-                     type='button'
-                     data-nameLength='#{rep.twitterName.length}'
-                     data-repId='#{rep._id}'
-                     class='btn btn-mini repBtn #{rep.party}') #{rep.name} 
+               strong Party
+         div.span2
+            each party in parties
+               label.checkbox.inline
+                  input.parties(
+                     type='checkbox'
+                     checked
+                     value='#{party.name}')
+                  | #{party.short}
+      div.row-fluid.chkBoxDiv
+         each category in categories
+            div.row-fluid.repCategory.hide(id='#{category.short}')
+               h5= category.name
+               each rep in reps
+                  if rep.body == category.name
+                     button(
+                        type='button'
+                        data-nameLength='#{rep.twitterName.length}'
+                        data-repId='#{rep._id}'
+                        class='btn btn-mini repBtn #{rep.party}') #{rep.name} 
 
 
    div.row-fluid

@@ -27,14 +27,34 @@ block afterNav
             dd= moment(tweet.created).format('MMMM Do YYYY, h:mm:ss a')
             dt Recipients
             dd
+               - var errCount = 0
                each rep in tweet.reps
                   if (rep.tweetId == 'ERROR')
-                     | Error tweeting to #{rep.id.twitterName}&nbsp;
+                     - errCount++
                   else
                      a.btn.btn-primary.btn-repLink(
                         href='http://twitter.com/#{tweet.user.username}/status/#{rep.tweetId}'
                         target='_new') @#{rep.id.twitterName}
                      |&nbsp;
+
+               if errCount > 0
+                  hr
+                  h5 There were some errors sending tweets to the following:
+                  table.table.table-condensed.table-bordered
+                     thead
+                        tr
+                           th Twitter Name
+                           th Error
+                     tbody
+                        each rep in tweet.reps
+                           if (rep.tweetId == 'ERROR')
+                              tr
+                                 td= '@'+rep.id.twitterName
+                                 if rep.error
+                                    td= rep.error
+                                 else
+                                    td Sorry, no error message received
+
       div.span3.
          <a href="https://twitter.com/share" class="twitter-share-button" data-via="GrssTwts" data-size="large" data-related="GrssTwts">Tweet</a>
          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
@@ -45,6 +65,10 @@ block modals
       dynamically on the page. 
 
 block pageScripts
+   script.
+      $(function () {
+         $("[data-toggle='popover']").popover();
+      });
    //- This is where any page specific scripts go   
       Keep in mind that these are included in every page already:
       script(src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')

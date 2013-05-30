@@ -79,21 +79,21 @@ $(document).ready(function(){
    var startingMax = parseInt($('#charsCounter').text(), 10);
    var maxChars = calculateChars(startingMax);
 
-   // watch the category checkboxes for clicks
+   // watch the category buttons for clicks
 
    $('.categories').click(function(){
-      var thisCat = $(this).val();
+      var thisCat = $(this).attr('href');
       if (!$(this).hasClass('active')) {
          // show the category and select each representative by default
-         $('#'+thisCat).show();
-         $('#'+thisCat).find('.repBtn').each(function(){
+         $(thisCat).show();
+         $(thisCat).find('.repBtn').each(function(){
             $(this).addClass('active');
          });
          maxChars = calculateChars(startingMax);
       } else {
          // hide the category and deselect all representatives
-         $('#'+thisCat).hide();
-         $('#'+thisCat).find('.repBtn').each(function(){
+         $(thisCat).hide();
+         $(thisCat).find('.repBtn').each(function(){
             $(this).removeClass('active');
          });
          maxChars = calculateChars(startingMax);

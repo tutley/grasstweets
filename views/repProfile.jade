@@ -8,19 +8,20 @@ block afterNav
       Please remember that everything here is inside of a container-fluid
       You should use row-fluid divs inside of here
    if (rep)
-      h3= rep.name
-         |&nbsp;
-         small #{rep.party} - #{rep.state} #{rep.body}
-      div.pull-right
-         if rep.addedBy
-            span Added By: 
-               a(href='/profile/#{rep.addedBy.username}')= rep.addedBy.name
-      div
-         h5 GrassTweets @#{rep.twitterName}
-      ul
-         each tweet in tweets
-            li
-               a(href='/tweet/#{tweet._id}') #{tweet.created}
+      div.row-fluid
+         h3= rep.name
+            |&nbsp;
+            small #{rep.party} - #{rep.state} #{rep.body}
+         div.pull-right
+            if rep.addedBy
+               span Added By: 
+                  a(href='/profile/#{rep.addedBy.username}')= rep.addedBy.name
+      div.row-fluid
+         h4 GrassTweets @#{rep.twitterName}
+         ul
+            each tweet in tweets
+               li
+                  a(href='/tweet/#{tweet._id}') #{moment(tweet.created).format('MMMM Do YYYY, h:mm:ss a')}
    else
       h3 Not Found
       p Sorry, that Twitter username was not found in the system

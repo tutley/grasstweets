@@ -54,10 +54,8 @@ block afterNav
             label.control-label(for='body') Legislative Body
             div.controls
                select(name='body')
-                  option(value='State House', selected) State House
-                  option(value='State Senate') State Senate
-                  option(value='US House') US House
-                  option(value='US Senate') US Senate
+                  each category in categories
+                     option(value='#{category.name}', selected=category.name==='State House')= category.name
                span.help-inline.hide Some Validation Message
          div.control-group
             label.control-label(for='party') Party

@@ -4,7 +4,8 @@ var Tweet = require('../models/tweet');
 var Rep = require('../models/rep');
 var Addrep = require('../models/addrep');
 
-var states = require('../states.js');
+var states = require('../states');
+var constants = require('../constants');
 
 module.exports = {
    //app.get('/reps', reps.main);
@@ -65,7 +66,9 @@ module.exports = {
       res.render('addRep.jade', {
          user: req.user,
          title: 'Add a Rep to GrassTweets.com',
-         states: states
+         states: states,
+         categories: constants.categories,
+         parties: constants.parties
       });
    },
 
@@ -110,7 +113,9 @@ module.exports = {
          res.render('fixRep.jade', {
             title: 'GrassTweets: Suggest Edits for ' + rep.twitterName,
             user: req.user,
-            rep: rep
+            rep: rep,
+            categories: constants.categories,
+            parties: constants.parties
          });
       });
    },

@@ -31,10 +31,8 @@ block afterNav
                label.control-label(for='body') Body
                div.controls
                   select(name='body')
-                     option(value='State House', selected=rep.body==='State House') State House
-                     option(value='State Senate', selected=rep.body==='State Senate') State Senate
-                     option(value='US House', selected=rep.body==='US House') US House
-                     option(value='US Senate', selected=rep.body==='US Senate') US Senate
+                     each category in categories
+                        option(value='#{category.name}', selected=rep.body==='#{category.name}')= category.name
             div.control-group
                label.control-label(for='party') Party
                div.controls

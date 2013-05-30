@@ -2,7 +2,8 @@
 
 // load helpers
 var Twit = require('twit');
-var config = require('../config.js');
+var config = require('../config');
+var constants = require('../constants');
 
 // load relevant models
 var User = require('../models/user');
@@ -17,8 +18,8 @@ function fakeTwit (method, options, callback) {
    var x = 1000;
    // wait x milliseconds, then return a fake result
    setTimeout(function() {
-      console.log(options.status);
-      callback(null, {'id_str':'TESTING'});
+      // callback(null, {'id_str':'TESTING'});
+      callback({message : 'Error: Testing things out'}, null);
    }, x);
 }
 
@@ -34,7 +35,6 @@ function fakeTwit (method, options, callback) {
  */
 function sendATweet (user, tweet, reps, callback) {
 
-   var error = null;
    var fullMessage = '';
    // Setup the Twitter API interface
    var T = new Twit({
@@ -50,14 +50,14 @@ function sendATweet (user, tweet, reps, callback) {
       fullMessage = '.@' + rep.twitterName + ' ' + tweet.message;
       T.post('statuses/update',
       // fakeTwit('statuses/update',
-      { status: fullMessage, trim_user: true },
+      { status: fullMessage },
       function(err, reply) {
          if (err) {
-            error = err;
+            var errString = JSON.stringify(err);
             tweet.reps.push({
                'id' : rep._id,
                'tweetId' : 'ERROR',
-               'error' : err.message
+               'error' : errString
             });
          } else {
             // add this tweet to the successful results
@@ -66,7 +66,7 @@ function sendATweet (user, tweet, reps, callback) {
                'tweetId' : reply.id_str
             });
          }
-         if (i==(reps.length-1)) {
+         if (i==lastTweet) {
             tweet.save(function(err) {
                if (err) { callback(err, null); }
                callback(null, tweet._id);
@@ -80,25 +80,14 @@ module.exports = {
    // app.get('/tweet')
    main: function (req, res, next) {
       if (req.user.state) {
-         // TODO: Find a better way to do this
-         var categories = [
-            { 'name':'US House', 'short':'ushouse'},
-            { 'name':'US Senate', 'short':'ussenate'},
-            { 'name':'State House', 'short':'sthouse'},
-            { 'name':'State Senate', 'short':'stsenate'}];
-
-         var parties = [
-            { 'name': 'Republican', 'short':'R'},
-            { 'name': 'Democrat', 'short':'D'},
-            { 'name': 'Other', 'short': 'O'}];
          Rep.find({ state: req.user.state }, function(err, reps) {
             if (err) { next(err); }
             res.render('tweetApp.jade', {
                title: 'Send a Tweet with GrassTweets',
                user: req.user,
                reps: reps,
-               categories: categories,
-               parties: parties
+               categories: constants.categories,
+               parties: constants.parties
             });
          });
       } else {
@@ -172,6 +161,28 @@ module.exports = {
             next(err);
          }
          res.send(200, { 'count' : tweet.reps.length });
+      });
+   },
+
+   // app.get('/tweet/test')
+   testLimit: function(req, res, next) {
+      User.findOne({'username':'GrssTwts'}, function (err, user) {
+         // Setup the Twitter API interface
+         var T = new Twit({
+            consumer_key: config.twitter.consumerKey,
+            consumer_secret: config.twitter.consumerSecret,
+            access_token: user.accessToken,
+            access_token_secret: user.accessTokenSecret
+         });
+         T.get('application/rate_limit_status',
+         { resources: 'statuses, help' },
+         function(err, reply) {
+            if (err) {
+               res.send(err);
+            } else {
+               res.send(reply);
+            }
+         });
       });
    }
 }
