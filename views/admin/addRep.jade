@@ -17,10 +17,13 @@ block afterNav
                label.control-label(for='twitterName') Twitter Name
                div.controls
                   input(type='text', name='twitterName', value='#{rep.twitterName}')
+                  span.help-inline: a(href='http://twitter.com/#{rep.twitterName}', target='new') @#{rep.twitterName}
             div.control-group
                label.control-label(for='photo') Photo
                div.controls
                   input(type='text', name='photo', value='#{rep.photo}')
+                  if rep.photo
+                     span.help-inline: a(href='#{rep.photo}', target='_new') View Photo
             div.control-group
                label.control-label(for='state') State
                div.controls
@@ -37,11 +40,20 @@ block afterNav
                label.control-label(for='party') Party
                div.controls
                   select(name='party')
-                     option(value='Republican', selected=rep.party==='Republican') Republican
-                     option(value='Democrat', selected=rep.party==='Democrat') Democrat
-                     option(value='Other', selected=rep.party==='Other') Other
-
-
+                     each party in parties
+                        option(value='#{party.name}', selected=party.name===rep.party)= party.name
+            div.control-group
+               label.control-label(for='phone') Phone
+               div.controls
+                  input(type='tel', name='phone', value='#{rep.phone}')
+            div.control-group
+               label.control-label(for='email') Email
+               div.controls
+                  input(type='email', name='email', value='#{rep.email}')
+            div.control-group
+               label.control-label(for='address') Address
+               div.controls
+                  textarea(name='address')= rep.address
             div.form-actions
                button.btn.btn-primary(type='submit') Add Rep
                | &nbsp;&nbsp;

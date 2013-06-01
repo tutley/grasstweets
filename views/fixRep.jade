@@ -1,37 +1,70 @@
 extends index
-//- better have that first line or none of this will work!
 
-   ***************************************************************************
-   I have set this layout up so that you never need to do a "block appends"
-   But, you do need to include each block, even if it is empty, so that you
-   don't load unecessary code from index (although it won't break anything)
-   ***************************************************************************
-
-block metas
-   //- meta(name='description', content='This is an example description!')
-      Here you can dynamically control the meta tags for each page
-      This is especially useful for social networking sites like facebook that grab information
-      from these meta tags to determine how links to your site appear on their site
-
-      Keep in mind that index is providing these for each page already:
-      meta(name='viewport', content='width=device-width, initial-scale=1.0')
-      meta(name='title', content='#{title}')
-         
+block metas        
 
 block afterNav
    //- This is where the page content goes
       Please remember that everything here is inside of a container-fluid
       You should use row-fluid divs inside of here
-   h3 Under Construction
-   p Something awesome will be here soon!
+   div.row-fluid
+      - var fields = ['name', 'twitterName', 'state', 'body', 'party', 'phone', 'email', 'address', 'photo']
+      div.span6
+         h3 Suggest Edits for #{rep.name}
+         p Select the info you'd like to change, then press submit!
+         p &nbsp;
+         form.form-horizontal(method='POST', action='/reps/fix')
+            input(
+               type='hidden'
+               name='rep'
+               value='#{rep._id}')
+            div.control-group
+               label.control-label(for='field') Field:
+               div.controls
+                  select(name='field', id='fSelect', required)
+                     each f in fields
+                        option(value='#{f}')= f
+            div.control-group
+               label.control-label(for='value') Correction:
+               div.controls(id='dynamic')
+                  input(
+                     type='text'
+                     name='value'
+                     required)
+            div.form-actions
+               button.btn.btn-primary(type='submit') Submit
+         div.hide
+            input(type='text', id='iText')
+            select(id='iState')
+               each state in states
+                  option(value='#{state.abbr}', selected=state.abbr===rep.state)= state.name
+            select(id='iBody')
+               each category in categories
+                  option(value='#{category.name}', selected=category.name===rep.body)= category.name
+            select(id='iParty')
+               each party in parties
+                  option(value='#{party.name}', selected=party.name===rep.party)= party.name
+            textarea(id='iAddress')
+
+
+      div.span6
+         h3 Current Info:
+         dl.dl-horizontal
+            each f in fields
+               dt= f
+               dd= rep[f]
+
+   div.row-fluid
+      h4 Current Suggestions:
+      ul
+         each correction in rep.corrections
+            if !correction.closed
+               li Change #{correction.field} to '#{correction.value}'. -
+                  | &nbsp;Submitted: #{moment(correction.submitted).format('MMMM Do YYYY, h:mm:ss a')}
 
 block modals
    //- this is where you can add hidden divs and other elements that you'll want to display
       dynamically on the page. 
 
 block pageScripts
-   //- This is where any page specific scripts go   
-      Keep in mind that these are included in every page already:
-      script(src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')
-      script(src='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js')
+   script(src='/js/fixRep.js')
 

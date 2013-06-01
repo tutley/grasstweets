@@ -61,9 +61,23 @@ block afterNav
             label.control-label(for='party') Party
             div.controls
                select(name='party')
-                  option(value='Republican', selected) Republican
-                  option(value='Democrat') Democrat
-                  option(value='Other') Other
+                  each party in parties
+                     option(value='#{party.name}')= party.name
+               span.help-inline.hide Some Validation Message
+         div.control-group
+            label.control-label(for='phone') Phone
+            div.controls
+               input(type='tel', name='phone', placeholder='555-867-5309')
+               span.help-inline.hide Some Validation Message
+         div.control-group
+            label.control-label(for='email') Email
+            div.controls
+               input(type='email', name='email', placeholder='stooge@government.gov')
+               span.help-inline.hide Some Validation Message
+         div.control-group
+            label.control-label(for='address') Address
+            div.controls
+               textarea(name='address', placeholder='123 State Way, City, ST, 12345')
                span.help-inline.hide Some Validation Message
          div.control-group
             div.controls

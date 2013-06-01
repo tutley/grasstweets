@@ -12,7 +12,7 @@ var TweetSchema = new Schema({
          ref: 'Rep'
       },
       tweetId: String,
-      error: String
+      error: Schema.Types.Mixed
    }],
    user: {
       type: ObjectId,

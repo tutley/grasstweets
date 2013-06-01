@@ -50,10 +50,15 @@ block afterNav
                            if (rep.tweetId == 'ERROR')
                               tr
                                  td= '@'+rep.id.twitterName
+                                 - var errMsg = 'Sorry, no error message received'
                                  if rep.error
-                                    td= rep.error
-                                 else
-                                    td Sorry, no error message received
+                                    if rep.error.data
+                                       - var feedback = JSON.parse(rep.error.data)
+                                       if feedback.errors[0]
+                                             - errMsg = 'Code: ' + feedback.errors[0].code +'; Message: ' + feedback.errors[0].message
+                                    else
+                                       - errMsg = 'Unable to parse Twitter response'
+                                 td= errMsg
 
       div.span3.
          <a href="https://twitter.com/share" class="twitter-share-button" data-via="GrssTwts" data-size="large" data-related="GrssTwts">Tweet</a>

@@ -4,9 +4,15 @@
  * This file contains customizations to the bootstrap default theme
  * 
  */
+@import url(http://fonts.googleapis.com/css?family=Cantarell:400,700);
 
 body {
    padding-top: 60px;
+   font-family: 'Cantarell', sans-serif;
+}
+
+.navbar .nav>li>a, .navbar .dropdown-menu li>a, .btn, h1, h2, h3, h4, h5, h6 {
+   font-family: 'Cantarell', sans-serif;
 }
 
 #confirmModal.modal {
@@ -122,12 +128,19 @@ a.btn-repLink {
    margin-bottom: 3px;
 }
 
+/* This is on the Tweet App page, making the form fit better */
 form#tweetForm {
    margin: 0 0 0 5px;
 }
 
+/* This opens up the spacing just a little bit on definition lists */
 .dl-horizontal dd {
    margin-bottom: 5px;
+}
+
+/* Make button forms (forms with all hidden fields) shorter */
+form.buttonForm {
+   margin: 0px;
 }
 
 

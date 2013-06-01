@@ -74,17 +74,42 @@ module.exports = {
 
    // app.get('/admin/editReps', isAdmin, admin.editReps);
    editReps: function(req, res, next) {
-
-   },
-
-   // app.get('/admin/editRep/:id', isAdmin, admin.editRep);
-   editRep: function(req, res, next) {
-
+      Rep.find({'corrections.0' : { $exists : true}})
+      .sort({'corrections.submitted':-1})
+      .exec(function(err, reps) {
+         if(err) { next(err); }
+         console.log(reps);
+         res.render('admin/showEdits.jade', {
+            title: 'Pending Rep Edits',
+            reps: reps,
+            user: req.user
+         });
+      });
    },
 
    // app.post('/admin/editRep', isAdmin, admin.postEdit);
    postEdit: function(req, res, next) {
+      var data = req.body;
+      Rep.findOneAndUpdate({'_id':data.rep}, {$set : data.correction},function(err, rep) {
+         if (err) {next(err);}
+         console.log(rep.corrections.id(data.cid));
+         rep.corrections.id(data.cid).closed = true;
+         rep.save(function(err) {
+            if(err) {next(err);}
+            res.redirect('/admin/editReps');
+         });
+      });
 
+   },
+
+   // app.post('/admin/cancelEdit', isAdmin, admin.cancelEdit)
+   cancelEdit: function(req, res, next) {
+      console.log(req.body);
+      var data = req.body;
+      Rep.update({'_id':data.rep}, {$pull:{'corrections': {'_id':data.cid} }}, function(err) {
+         if (err) {next(err);}
+         res.redirect('/admin/editReps');
+      });
    }
 
 };

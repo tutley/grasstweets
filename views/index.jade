@@ -59,6 +59,9 @@ html
                                  a(href='/needmorestuff')
                               li
                                  a(href='/logout') Log Out
+                              if user.username==='GrssTwts'
+                                 li
+                                    a(href='/admin') Admin Section
                      else
                         li.dropdown
                            a.dropdown-toggle(href='/login') Login
@@ -96,7 +99,9 @@ html
                         each tweet in tweets
                            li
                               a(href='/profile/#{tweet.user.username}') @#{tweet.user.username}:
-                              a(href='/tweet/#{tweet._id}') "#{tweet.message.substr(0, 20)}..." to 
+                              |&nbsp;
+                              a(href='/tweet/#{tweet._id}') "#{tweet.message.substr(0, 40)}..."
+                              | &nbsp;to 
                               strong #{tweet.reps.length}
                               | &nbsp;reps
                   div.span1

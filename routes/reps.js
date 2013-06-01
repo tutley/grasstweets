@@ -42,7 +42,9 @@ module.exports = {
       .exec(function(err, rep) {
          if (err) { next(err); }
          if (rep) {
-            Tweet.find({ 'reps.id': rep._id }, function(err, tweets) {
+            Tweet.find({ 'reps.id': rep._id })
+            .sort({'created':-1})
+            .exec(function(err, tweets) {
                if (err) { next(err); }
                res.render('repProfile.jade', {
                   title: rep.name + ' - Grastweets.com',
@@ -109,11 +111,11 @@ module.exports = {
       // be sure to show the current suggested fixes here as well
       Rep.findById(req.params.rep, function(err, rep){
          if (err) { next(err); }
-         console.log(rep);
          res.render('fixRep.jade', {
             title: 'GrassTweets: Suggest Edits for ' + rep.twitterName,
             user: req.user,
             rep: rep,
+            states: states,
             categories: constants.categories,
             parties: constants.parties
          });
@@ -122,12 +124,12 @@ module.exports = {
 
    // app.post('/reps/fix', reps.fix);
    fix: function(req, res, next) {
-      console.log(req.body);
       var data = {};
       var rep = req.body.rep;
       data['by'] = req.user._id;
       data['field'] = req.body.field;
       data['value'] = req.body.value;
+      data['closed'] = false;
       Rep.update({'_id':rep}, {$push : { 'corrections' : data }}, function(err) {
          if(err) { next(err); }
          res.redirect('/reps/fix/'+rep);

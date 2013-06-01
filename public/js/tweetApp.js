@@ -173,7 +173,10 @@ $(document).ready(function(){
             count++;
             tReps.push($(this).attr('data-repId'));
          });
-         var confMessage = 'You are about to send <strong>' + count + '</strong> tweets, one to each representative you have selected.';
+         var confMessage = 'You are about to send <strong>' + count;
+         confMessage += '</strong> tweets, one to each representative you have selected.';
+         confMessage += ' They will each look something like this:<BR><BR><div class="well">';
+         confMessage += '.@RepUsername ' + $('#message').val() + '</div>';
          $('#modalMessage').html(confMessage);
          $('#confirmModal').modal('show');
       }

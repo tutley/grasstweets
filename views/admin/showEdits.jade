@@ -1,0 +1,49 @@
+extends ../index
+
+block metas
+
+block afterNav
+   //- This is where the page content goes
+      Please remember that everything here is inside of a container-fluid
+      You should use row-fluid divs inside of here
+   h3 Suggested Rep Edits
+   div.row-fluid
+      table.table.table-condensed.table-bordered.table-striped
+         thead
+            tr
+               th Rep name
+               th Twitter Name
+               th Edit Field
+               th Current
+               th Suggested
+               th Save
+               th Delete
+         tbody
+            each rep in reps
+               each c in rep.corrections
+                  //- There may be a more efficient way to remove closed edits in mongoose, I dunno
+                  if !c.closed
+                     tr
+                        td= rep.name
+                        td: a(href='/reps/#{rep.twitterName}', target='_new')= rep.twitterName
+                        td= c.field
+                        td= rep[c.field]
+                        td= c.value
+                        td: form.buttonForm(action='/admin/editRep', method='POST')
+                           input(type='hidden', name='correction[#{c.field}]', value='#{c.value}')
+                           input(type='hidden', name='rep', value='#{rep._id}')
+                           input(type='hidden', name='cid', value='#{c._id}')
+                           button.btn.btn-primary.btn-mini Save
+                        td: form.buttonForm(action='/admin/cancelEdit', method='POST')
+                           input(type='hidden', name='rep', value='#{rep._id}')
+                           input(type='hidden', name='cid', value='#{c._id}')
+                           button.btn.btn-danger.btn-mini Delete
+block modals
+   //- this is where you can add hidden divs and other elements that you'll want to display
+      dynamically on the page. 
+
+block pageScripts
+   //- This is where any page specific scripts go   
+      Keep in mind that these are included in every page already:
+      script(src='//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js')
+      script(src='//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js')

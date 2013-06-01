@@ -9,19 +9,50 @@ block afterNav
       You should use row-fluid divs inside of here
    if (rep)
       div.row-fluid
-         h3= rep.name
-            |&nbsp;
-            small #{rep.party} - #{rep.state} #{rep.body}
-         div.pull-right
-            if rep.addedBy
-               span Added By: 
-                  a(href='/profile/#{rep.addedBy.username}')= rep.addedBy.name
+         div.span9
+            h3= rep.name
+               |&nbsp;
+               |(#{rep.party.charAt(0)})
+               small &nbsp; - #{rep.state} #{rep.body}
+            div.pull-right
+               if rep.addedBy
+                  span Added By: 
+                     a(href='/profile/#{rep.addedBy.username}')= rep.addedBy.name
+            h5 Other ways to contact #{rep.name}:
+            dl.dl-horizontal
+               dt Phone:
+               dd= rep.phone
+               dt Email:
+               dd: a(href='mailto:#{rep.email}')= rep.email
+               dt Address:
+               dd= rep.address
+            p Missing/Incorrect Information? &nbsp;
+               a(href='/reps/fix/#{rep._id}') Suggest an Edit
+         div.span3
+            a(
+               href='http://twitter.com/#{rep.twittername}'
+               target='_new')
+               -var repImg = 'http://i.imgur.com/ccZ6KIQ.jpg'
+               if rep.photo
+                  - repImg = rep.photo
+               img(
+                  src='#{repImg}')
       div.row-fluid
-         h4 GrassTweets @#{rep.twitterName}
-         ul
-            each tweet in tweets
-               li
-                  a(href='/tweet/#{tweet._id}') #{moment(tweet.created).format('MMMM Do YYYY, h:mm:ss a')}
+         div
+            h4 GrassTweets @#{rep.twitterName}
+            table.table-condensed.table.table-bordered
+               thead
+                  tr
+                     th Sent
+                     th Message
+                     th Reps
+               tbody
+                  each tweet in tweets
+                     tr
+                        td: a(href='/tweet/#{tweet._id}') #{moment(tweet.created).format('MMMM Do YYYY, h:mm:ss a')}
+                        td= tweet.message
+                        td= tweet.reps.length
+
    else
       h3 Not Found
       p Sorry, that Twitter username was not found in the system

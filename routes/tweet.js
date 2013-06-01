@@ -53,11 +53,11 @@ function sendATweet (user, tweet, reps, callback) {
       { status: fullMessage },
       function(err, reply) {
          if (err) {
-            var errString = JSON.stringify(err);
+            console.log(err);
             tweet.reps.push({
                'id' : rep._id,
                'tweetId' : 'ERROR',
-               'error' : errString
+               'error' : err
             });
          } else {
             // add this tweet to the successful results
@@ -102,7 +102,8 @@ module.exports = {
          .populate('reps.id user')
          .exec(function(err, tweet) {
          if (err) { next(err); }
-         // TODO: take into account tweetId = ERROR
+
+         console.log(tweet.reps);
          var count = tweet.reps.length;
          res.render('tweet.jade', {
             title: 'A GrassTweet from @' + tweet.user.username,

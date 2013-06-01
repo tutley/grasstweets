@@ -22,6 +22,9 @@ var RepSchema = new Schema({
    state: String,
    body: String,
    party: String,
+   phone: String,
+   email: String,
+   address: String,
    addedBy: {
       type: ObjectId,
       ref: 'User'
