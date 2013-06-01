@@ -55,11 +55,19 @@ block afterNav
                h5= category.name
                each rep in reps
                   if rep.body == category.name
+                     - var pClass = ''
+                     case rep.party
+                        when 'Republican'
+                           - pClass = 'btn-danger'
+                        when 'Democrat'
+                           - pClass = 'btn-success'
+                        default
+                           - pClass = 'btn-warning'
                      button(
                         type='button'
                         data-nameLength='#{rep.twitterName.length}'
                         data-repId='#{rep._id}'
-                        class='btn btn-small repBtn #{rep.party}') #{rep.name} 
+                        class='btn btn-small repBtn #{rep.party} #{pClass}') #{rep.name} 
 
 
    div.row-fluid

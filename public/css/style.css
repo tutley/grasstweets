@@ -25,7 +25,7 @@ body {
 /* This styling is for the main tweet app. These are the buttons that represent the reps to tweet */
 
 button.repBtn.Republican.active {
-   background-color: hsl(0, 67%, 30%) !important;
+/*   background-color: hsl(0, 67%, 30%) !important;
    background-repeat: repeat-x;
    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#db4c4c", endColorstr="#7f1919");
    background-image: -khtml-gradient(linear, left top, left bottom, from(#db4c4c), to(#7f1919));
@@ -38,12 +38,12 @@ button.repBtn.Republican.active {
    border-color: #7f1919 #7f1919 hsl(0, 67%, 23%);
    color: #fff !important;
    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.46);
-   -webkit-font-smoothing: antialiased;
+   -webkit-font-smoothing: antialiased;*/
    margin: 3px;
 }
 
 button.repBtn.Republican {
-   background-color: hsl(0, 67%, 69%) !important;
+/*   background-color: hsl(0, 67%, 69%) !important;
    background-repeat: repeat-x;
    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fcf2f2", endColorstr="#e47a7a");
    background-image: -khtml-gradient(linear, left top, left bottom, from(#fcf2f2), to(#e47a7a));
@@ -56,13 +56,13 @@ button.repBtn.Republican {
    border-color: #e47a7a #e47a7a hsl(0, 67%, 62%);
    color: #333 !important;
    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.46);
-   -webkit-font-smoothing: antialiased;
+   -webkit-font-smoothing: antialiased;*/
    margin: 3px;
 }
 
 
 button.repBtn.Democrat.active {
-   background-color: hsl(221, 67%, 22%) !important;
+/*   background-color: hsl(221, 67%, 22%) !important;
    background-repeat: repeat-x;
    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2a60d4", endColorstr="#122a5d");
    background-image: -khtml-gradient(linear, left top, left bottom, from(#2a60d4), to(#122a5d));
@@ -75,12 +75,12 @@ button.repBtn.Democrat.active {
    border-color: #122a5d #122a5d hsl(221, 67%, 15%);
    color: #fff !important;
    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.46);
-   -webkit-font-smoothing: antialiased;
+   -webkit-font-smoothing: antialiased;*/
    margin: 3px;
 }
 
 button.repBtn.Democrat {
-   background-color: hsl(221, 67%, 69%) !important;
+/*   background-color: hsl(221, 67%, 69%) !important;
    background-repeat: repeat-x;
    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f2f5fc", endColorstr="#7a9ce4");
    background-image: -khtml-gradient(linear, left top, left bottom, from(#f2f5fc), to(#7a9ce4));
@@ -93,7 +93,7 @@ button.repBtn.Democrat {
    border-color: #7a9ce4 #7a9ce4 hsl(221, 67%, 62%);
    color: #333 !important;
    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.46);
-   -webkit-font-smoothing: antialiased;
+   -webkit-font-smoothing: antialiased;*/
    margin: 3px;
 }
 
