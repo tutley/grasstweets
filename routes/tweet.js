@@ -102,8 +102,6 @@ module.exports = {
          .populate('reps.id user')
          .exec(function(err, tweet) {
          if (err) { next(err); }
-
-         console.log(tweet.reps);
          var count = tweet.reps.length;
          res.render('tweet.jade', {
             title: 'A GrassTweet from @' + tweet.user.username,
