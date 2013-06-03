@@ -1,11 +1,11 @@
 // Module Dependencies
-var express = require('express')
-   , routes = require('./routes')
-   , mongoose = require('mongoose')
-   , mongo = require('mongodb')
-   , passport = require('./auth')
-   , mongoStore = require('connect-mongo')(express)
-   , moment = require('moment');
+var express = require('express'),
+   routes = require('./routes'),
+   mongoose = require('mongoose'),
+   mongo = require('mongodb'),
+   passport = require('./auth'),
+   mongoStore = require('connect-mongo')(express),
+   moment = require('moment');
 
 var app = module.exports = express();
 global.app = app;
@@ -37,10 +37,19 @@ app.configure(function(){
    app.set('view engine', 'jade');
    // Middleware to highlight the current top level path
    app.use(function(req, res, next) {
-     var current = req.path.split('/');
-     res.locals.current = '/' + current[1];
-     res.locals.url = 'http://' + req.get('host') + req.url;
-     next();
+      var current = req.path.split('/');
+      res.locals.current = '/' + current[1];
+      res.locals.url = 'http://' + req.get('host') + req.url;
+      next();
+   });
+   app.use(function(req,res,next){
+      if(req.headers.host=="www.grasstweets.com"){
+         res.writeHead(301, {'Location':'http://grasstweets.com'+req.url, 'Expires': (new Date).toGMTString()});
+         res.end();
+      }
+         else{
+         next();
+      }
    });
    app.use(express.bodyParser());
    app.use(express.cookieParser());

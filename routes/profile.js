@@ -2,7 +2,6 @@
 var User = require('../models/user');
 var Tweet = require('../models/tweet');
 
-// TODO: delete this, no longer needed
 var states = require('../states');
 
 module.exports = {
