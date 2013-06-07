@@ -56,16 +56,16 @@ passport.use(new TwitterStrategy({
                done(null, user);
             }
          } else {
-            var user = new User();
-            user.tid = profile.id;
-            user.name = profile.displayName;
-            user.username = profile.username;
-            user.photo = profile._json.profile_image_url;
-            user.accessToken = token;
-            user.accessTokenSecret = tokenSecret;
-            user.save(function(err) {
+            var u = new User();
+            u.tid = profile.id;
+            u.name = profile.displayName;
+            u.username = profile.username;
+            u.photo = profile._json.profile_image_url;
+            u.accessToken = token;
+            u.accessTokenSecret = tokenSecret;
+            u.save(function(err) {
                if(err) { next(err); }
-               done(null, user);
+               done(null, u);
             });
          }
       });
